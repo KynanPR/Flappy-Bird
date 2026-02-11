@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Assets">
+      <UniqueIdentifier>{b9f1ab68-2900-471c-989d-7b9e31d10528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Background">
+      <UniqueIdentifier>{c9b9894a-5818-441c-b401-345bbed84d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Tiles">
+      <UniqueIdentifier>{206a3aaa-5075-4205-b00c-9dd44d8dc70e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Player">
+      <UniqueIdentifier>{32b93c05-ff23-4a7b-b80f-2a6efb7495cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -44,5 +56,49 @@
     <ClInclude Include="Pipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Background\Background1.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background2.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background3.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background4.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background5.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background6.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background6-Sheet.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background7.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background8.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Background\Background9.png">
+      <Filter>Resource Files\Assets\Background</Filter>
+    </Image>
+    <Image Include="assets\Tiles\Style 1\PipeStyle1.png">
+      <Filter>Resource Files\Assets\Tiles</Filter>
+    </Image>
+    <Image Include="assets\Tiles\Style 1\SimpleStyle1.png">
+      <Filter>Resource Files\Assets\Tiles</Filter>
+    </Image>
+    <Image Include="assets\Tiles\Style 1\TileStyle1.png">
+      <Filter>Resource Files\Assets\Tiles</Filter>
+    </Image>
+    <Image Include="assets\Player\StyleBird1\Bird1-7.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
   </ItemGroup>
 </Project>

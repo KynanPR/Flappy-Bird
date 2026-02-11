@@ -146,6 +146,22 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Background\Background1.png" />
+    <Image Include="assets\Background\Background2.png" />
+    <Image Include="assets\Background\Background3.png" />
+    <Image Include="assets\Background\Background4.png" />
+    <Image Include="assets\Background\Background5.png" />
+    <Image Include="assets\Background\Background6-Sheet.png" />
+    <Image Include="assets\Background\Background6.png" />
+    <Image Include="assets\Background\Background7.png" />
+    <Image Include="assets\Background\Background8.png" />
+    <Image Include="assets\Background\Background9.png" />
+    <Image Include="assets\Player\StyleBird1\Bird1-7.png" />
+    <Image Include="assets\Tiles\Style 1\PipeStyle1.png" />
+    <Image Include="assets\Tiles\Style 1\SimpleStyle1.png" />
+    <Image Include="assets\Tiles\Style 1\TileStyle1.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
