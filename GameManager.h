@@ -3,6 +3,7 @@
 #include "Player.h"
 #include"Background.h"
 #include "PipeManager.h"
+
 class GameManager
 {
 public:
