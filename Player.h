@@ -13,12 +13,15 @@ public:
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
+
+	int m_flapFrames = 10;
+	int m_flapFrameCounter;
 	bool m_isFlappedLastFrame = false;
 	const sf::Vector2f m_startingPosition = { static_cast<float>(WINDOW_WIDTH / 5), static_cast<float>(WINDOW_HEIGHT / 2) };
 	const float m_gravityAccel = 15.f;
 	const float m_terminalVel = 8.f;
 
-	const float m_flapAccel = 250.f;
+	const float m_flapAccel = 200.f;
 	
 
 

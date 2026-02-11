@@ -9,6 +9,13 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 
 void Player::update(bool isFlapping, sf::Time deltaTime)
 {
+	if (m_flapFrameCounter <= m_flapFrames && m_flapFrameCounter > 0) {
+		// Apply accel
+		float accel = m_flapAccel * ((1 / m_flapFrameCounter));
+		m_velocity.y -= accel * deltaTime.asSeconds();
+
+		m_flapFrameCounter--;
+	}
 
 	if (isFlapping && !m_isFlappedLastFrame) {
 		// Reset velocity
@@ -18,6 +25,7 @@ void Player::update(bool isFlapping, sf::Time deltaTime)
 		m_velocity.y -= m_flapAccel * deltaTime.asSeconds();
 
 		m_isFlappedLastFrame = true;
+		m_flapFrameCounter = m_flapFrames;
 	}
 	else {
 	// Apply gravity
