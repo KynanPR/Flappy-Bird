@@ -1,5 +1,8 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+#include "Player.h"
+#include"Background.h"
+#include "PipeManager.h"
 class GameManager
 {
 public:
@@ -25,5 +28,11 @@ private:
 	const std::string windowTitle = "Flappy Bird";
 	sf::Time deltaTime;
 	sf::Event event;
+
+	// game objects
+	Player player;
+	Background background;
+	PipeManager pipeManager;
+
 };
 
