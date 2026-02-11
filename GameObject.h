@@ -12,10 +12,16 @@ protected:
 public:
 	GameObject(std::string texturePath);
 
+	// Get current position of GameObject's sprite
 	sf::Vector2f GetPosition() { return m_sprite.getPosition(); }
+	// Set position of GameObject's sprite \return new position
 	sf::Vector2f SetPosition(const sf::Vector2f& newPosition) {
 		m_sprite.setPosition(newPosition);
 		return m_sprite.getPosition();
+	}
+
+	void Render(sf::RenderWindow &window) {
+		window.draw(m_sprite);
 	}
 };
 
