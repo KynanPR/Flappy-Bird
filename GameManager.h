@@ -1,8 +1,10 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+#include "Utils.h"
 #include "Player.h"
 #include"Background.h"
 #include "PipeManager.h"
+#include "InputManager.h"
 
 class GameManager
 {
@@ -25,7 +27,6 @@ private:
 	sf::Clock gameClock;
 	sf::VideoMode videoMode;
 	sf::Vector2u windowSize;
-	const int windowWidth = 1280, windowHeight = 720;
 	const std::string windowTitle = "Flappy Bird";
 	sf::Time deltaTime;
 	sf::Event event;
@@ -34,6 +35,7 @@ private:
 	Player player;
 	Background background;
 	PipeManager pipeManager;
+	InputManager inputManager;
 
 };
 

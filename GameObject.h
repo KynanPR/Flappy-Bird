@@ -4,11 +4,6 @@
 
 class GameObject
 {
-protected:
-	sf::Vector2f m_scale;
-	sf::Texture m_baseTexture;
-	sf::Sprite m_sprite;
-
 public:
 	GameObject(std::string texturePath);
 
@@ -20,8 +15,14 @@ public:
 		return m_sprite.getPosition();
 	}
 
-	void Render(sf::RenderWindow &window) {
+	void render(sf::RenderWindow &window) {
 		window.draw(m_sprite);
 	}
+
+protected:
+	sf::Vector2f m_scale;
+	sf::Texture m_baseTexture;
+	sf::Sprite m_sprite;
+
 };
 
