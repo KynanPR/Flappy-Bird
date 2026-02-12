@@ -15,7 +15,7 @@ void GameManager::run()
 		
 		deltaTime = gameClock.restart();
 		pollEvents();
-		if (currentGameState == Playing)
+		if (currentGameState != Startscreen)
 		{
 			updateGame();
 		}
@@ -54,15 +54,20 @@ void GameManager::initText()
 	gameOverText.setString(gameOverTextString);
 	gameOverText.setCharacterSize(gameOverCharacterSize);
 	gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2, gameOverText.getLocalBounds().height / 2);
-	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 2));
+	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 5));
 }
 
 void GameManager::updateGame()
 {
 	// update game here
+	if (currentGameState == Playing) {
 	inputManager.updateInput();
+	// Pipe update here
+
+	}
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
 	// check collision here and if it collides change the game to game over and render the end screen
+	isTheGameOver = player.checkFloorCollision();
 
 	if (isTheGameOver)
 	{
@@ -96,7 +101,7 @@ void GameManager::renderGame()
 	{
 		renderText();
 	}
-	else if (currentGameState == Playing)
+	if (currentGameState == Playing || currentGameState == GameOver)
 	{
 		player.render(window);
 	}

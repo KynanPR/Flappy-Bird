@@ -12,7 +12,13 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 
 bool Player::checkFloorCollision()
 {
-	return (m_sprite.getPosition().y >= WINDOW_HEIGHT - m_sprite.getTextureRect().height / 2);
+	
+  	if (m_sprite.getPosition().y >= WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2)) {
+
+		std::cout << "Floor!" << std::endl;
+		return true;
+	}
+	return false;
 }
 
 void Player::update(bool isFlapping, sf::Time deltaTime)
@@ -55,7 +61,7 @@ void Player::update(bool isFlapping, sf::Time deltaTime)
 
 	// Don't go off bottom of screen
 	sf::Vector2f currentPos = m_sprite.getPosition();
-	float maxAllowablePos = WINDOW_HEIGHT - m_sprite.getTextureRect().height;
+	float maxAllowablePos =WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2) ;
 	m_sprite.setPosition(currentPos.x, std::min(currentPos.y, maxAllowablePos));
 
 }
