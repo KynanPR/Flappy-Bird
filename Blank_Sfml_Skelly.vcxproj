@@ -141,6 +141,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="PipeManager.cpp" />
+    <ClCompile Include="Pipes.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="PipeManager.h" />
+    <ClInclude Include="Pipes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
@@ -166,6 +168,8 @@
     <Image Include="assets\Background\Background8.png" />
     <Image Include="assets\Background\Background9.png" />
     <Image Include="assets\Player\StyleBird1\Bird1-7.png" />
+    <Image Include="assets\Tiles\Style 1\LongerPipe.png" />
+    <Image Include="assets\Tiles\Style 1\LongPipe.png" />
     <Image Include="assets\Tiles\Style 1\PipeStyle1.png" />
     <Image Include="assets\Tiles\Style 1\SimpleStyle1.png" />
     <Image Include="assets\Tiles\Style 1\TileStyle1.png" />

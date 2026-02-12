@@ -3,11 +3,12 @@
 #include "GameObject.h"
 
 static const std::string PLAYER_TEX_PATH= "assets/Player/StyleBird1/Bird1-7.png";
+static const sf::Vector2i PLAYER_TEX_SIZE = { 16, 16 };
 
 class Player : public GameObject
 {
 public:
-	void update(bool isFlapping, sf::Time deltaTime);
+	void update(bool isFlapping, sf::Time& deltaTime);
 	Player();
 	
 	bool checkFloorCollision();
@@ -17,8 +18,8 @@ private:
 	sf::Vector2f m_velocity;
 
 	int m_flapFrames = 10;
-	int m_flapFrameCounter;
-	bool m_isFlappedLastFrame = false;
+	int m_flapFrameCounter = 1;
+	bool m_isFlappedLastFrame = true;
 	const sf::Vector2f m_startingPosition = { static_cast<float>(WINDOW_WIDTH / 5), static_cast<float>(WINDOW_HEIGHT / 2) };
 	const float m_gravityAccel = 75.f;
 	const float m_terminalGrav = 10.f;

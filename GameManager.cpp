@@ -63,7 +63,7 @@ void GameManager::updateGame()
 	if (currentGameState == Playing) {
 	inputManager.updateInput();
 	// Pipe update here
-
+	pipeManager.update(deltaTime);
 	}
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
 	// check collision here and if it collides change the game to game over and render the end screen
@@ -103,6 +103,7 @@ void GameManager::renderGame()
 	}
 	if (currentGameState == Playing || currentGameState == GameOver)
 	{
+		pipeManager.render(window);
 		player.render(window);
 	}
 	
