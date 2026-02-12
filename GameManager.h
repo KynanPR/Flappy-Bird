@@ -39,10 +39,13 @@ private:
 	sf::Font gameFont;
 	const std::string fontPath = "assets/Font/Pixellettersfull-BnJ5.ttf";
 	const std::string startScreenTextString = "Press Space to start";
+	const std::string gameOverTextString = "Game Over!";
 	const int startScreenCharacterSize = 50;
 	const int titleCharacterSize = 100;
+	const int gameOverCharacterSize = 200;
 	const std::string title = "FLAPPY BIRD";
 	const float titleYOffset = 200.f;
+	bool isTheGameOver = false;
 	
 
 

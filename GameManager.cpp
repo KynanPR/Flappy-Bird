@@ -49,6 +49,12 @@ void GameManager::initText()
 	titleText.setCharacterSize(titleCharacterSize);
 	titleText.setOrigin(titleText.getLocalBounds().width / 2, titleText.getLocalBounds().height / 2);
 	titleText.setPosition(static_cast<float>(windowSize.x / 2) , static_cast<float>(windowSize.y / 2) - titleYOffset);
+
+	// initalize the game over text
+	gameOverText.setString(gameOverTextString);
+	gameOverText.setCharacterSize(gameOverCharacterSize);
+	gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2, gameOverText.getLocalBounds().height / 2);
+	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 2));
 }
 
 void GameManager::updateGame()
@@ -56,6 +62,12 @@ void GameManager::updateGame()
 	// update game here
 	inputManager.updateInput();
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
+	// check collision here and if it collides change the game to game over and render the end screen
+
+	if (isTheGameOver)
+	{
+		currentGameState = GameOver;
+	}
 }
 
 void GameManager::pollEvents()
