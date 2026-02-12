@@ -9,6 +9,8 @@ class Player : public GameObject
 public:
 	void update(bool isFlapping, sf::Time deltaTime);
 	Player();
+	
+	bool checkFloorCollision();
 
 private:
 	sf::Vector2f m_position;
