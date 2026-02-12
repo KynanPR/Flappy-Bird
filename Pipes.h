@@ -26,7 +26,7 @@ private:
 	Pipe m_topPipe;
 	Pipe m_bottomPipe;
 
-	sf::Vector2f m_position = { static_cast<float>(WINDOW_WIDTH / 2) , static_cast<float>(WINDOW_HEIGHT / 2)};
+	sf::Vector2f m_position = { static_cast<float>(WINDOW_WIDTH / 2) , static_cast<float>(WINDOW_HEIGHT - 100)};
 	int m_gapSize = 0; //WINDOW_HEIGHT / 5;
 
 	// Set position of both pipes accounting for gap size

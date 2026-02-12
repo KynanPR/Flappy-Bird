@@ -168,6 +168,8 @@
     <Image Include="assets\Background\Background8.png" />
     <Image Include="assets\Background\Background9.png" />
     <Image Include="assets\Player\StyleBird1\Bird1-7.png" />
+    <Image Include="assets\Tiles\Style 1\LongerPipe.png" />
+    <Image Include="assets\Tiles\Style 1\LongPipe.png" />
     <Image Include="assets\Tiles\Style 1\PipeStyle1.png" />
     <Image Include="assets\Tiles\Style 1\SimpleStyle1.png" />
     <Image Include="assets\Tiles\Style 1\TileStyle1.png" />

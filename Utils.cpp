@@ -4,7 +4,7 @@ bool LoadTexture(const std::string &texPath, sf::Texture& tex)
 {
 
     if (tex.loadFromFile(texPath)) {
-        tex.setSmooth(true);
+        tex.setSmooth(false);
         return true;
     }
     else {

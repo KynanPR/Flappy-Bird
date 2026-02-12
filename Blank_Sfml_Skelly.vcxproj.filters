@@ -130,5 +130,11 @@
     <Image Include="assets\Player\StyleBird1\Bird1-7.png">
       <Filter>Resource Files\Assets\Player</Filter>
     </Image>
+    <Image Include="assets\Tiles\Style 1\LongPipe.png">
+      <Filter>Resource Files\Assets\Tiles</Filter>
+    </Image>
+    <Image Include="assets\Tiles\Style 1\LongerPipe.png">
+      <Filter>Resource Files\Assets\Tiles</Filter>
+    </Image>
   </ItemGroup>
 </Project>
