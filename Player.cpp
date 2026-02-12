@@ -13,7 +13,7 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 bool Player::checkFloorCollision()
 {
 	
-	return (m_sprite.getPosition().y >= WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2));
+  	if (m_sprite.getPosition().y >= WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2)) {
 
 		std::cout << "Floor!" << std::endl;
 		return true;
