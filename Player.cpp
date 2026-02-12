@@ -3,6 +3,8 @@
 Player::Player() : GameObject(PLAYER_TEX_PATH)
 {
 	m_position = m_startingPosition;
+	sf::IntRect texRect = m_sprite.getTextureRect();
+	m_sprite.setOrigin(texRect.width / 2, texRect.height / 2);
 	m_sprite.setPosition({100.f, 100.f});
 	m_sprite.setScale({ 3.f, 3.f });
 }
@@ -45,5 +47,9 @@ void Player::update(bool isFlapping, sf::Time deltaTime)
 	// Apply the velocity
 	m_sprite.move(m_velocity);
 
+	// Don't go off bottom of screen
+	sf::Vector2f currentPos = m_sprite.getPosition();
+	float maxAllowablePos = WINDOW_HEIGHT - m_sprite.getTextureRect().height;
+	m_sprite.setPosition(currentPos.x, std::min(currentPos.y, maxAllowablePos));
 }
 
