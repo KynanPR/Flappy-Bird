@@ -17,10 +17,12 @@ public:
 private:
 	// private functions
 	void initWindow();
+	void initText();
 	void updateGame();
 	void pollEvents();
 	void renderGame();
-
+	void renderText();
+	
 
 	// game vairables
 	sf::RenderWindow window;
@@ -30,6 +32,19 @@ private:
 	const std::string windowTitle = "Flappy Bird";
 	sf::Time deltaTime;
 	sf::Event event;
+	enum GameState { Startscreen, Playing, GameOver }; GameState currentGameState = Playing;
+	sf::Text startSceenText; 
+	sf::Text titleText;
+	sf::Text gameOverText;
+	sf::Font gameFont;
+	const std::string fontPath = "assets/Font/Pixellettersfull-BnJ5.ttf";
+	const std::string startScreenTextString = "Press Space to start";
+	const int startScreenCharacterSize = 50;
+	const int titleCharacterSize = 100;
+	const std::string title = "FLAPPY BIRD";
+	const float titleYOffset = 200.f;
+	
+
 
 	// game objects
 	Player player;
