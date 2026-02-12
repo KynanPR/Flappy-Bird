@@ -9,23 +9,19 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 
 void Player::update(bool isFlapping, sf::Time deltaTime)
 {
+	// Start flapping
+	if (isFlapping && !m_isFlappedLastFrame) {
+		m_isFlappedLastFrame = true;
+		m_flapFrameCounter = m_flapFrames;
+	}
 	if (m_flapFrameCounter <= m_flapFrames && m_flapFrameCounter > 0) {
 		// Apply accel
-		float accel = m_flapAccel * ((1 / m_flapFrameCounter));
+		float easeOut = (1 - std::pow(2, m_flapFrameCounter * -m_flapEaseCoefficient)); // Exponential ease out
+		float accel = m_flapAccel * easeOut;
+		//accel = std::min(accel, m_flapAccelCap);
 		m_velocity.y -= accel * deltaTime.asSeconds();
 
 		m_flapFrameCounter--;
-	}
-
-	if (isFlapping && !m_isFlappedLastFrame) {
-		// Reset velocity
-		m_velocity.y = 0;
-
-		// Apply accel
-		m_velocity.y -= m_flapAccel * deltaTime.asSeconds();
-
-		m_isFlappedLastFrame = true;
-		m_flapFrameCounter = m_flapFrames;
 	}
 	else {
 	// Apply gravity
@@ -37,9 +33,13 @@ void Player::update(bool isFlapping, sf::Time deltaTime)
 		m_isFlappedLastFrame = false;
 	}
 
+	
 	// Cap velocity
-	if (m_velocity.y > m_terminalVel) {
-		m_velocity.y = m_terminalVel;
+	if (m_velocity.y > m_terminalGrav) {
+		m_velocity.y = m_terminalGrav;
+	}
+	else if (m_velocity.y < -m_flapMaxVel) {
+		m_velocity.y = -m_flapMaxVel;
 	}
 
 	// Apply the velocity

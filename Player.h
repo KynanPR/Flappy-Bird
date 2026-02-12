@@ -18,10 +18,13 @@ private:
 	int m_flapFrameCounter;
 	bool m_isFlappedLastFrame = false;
 	const sf::Vector2f m_startingPosition = { static_cast<float>(WINDOW_WIDTH / 5), static_cast<float>(WINDOW_HEIGHT / 2) };
-	const float m_gravityAccel = 15.f;
-	const float m_terminalVel = 8.f;
+	const float m_gravityAccel = 75.f;
+	const float m_terminalGrav = 10.f;
 
-	const float m_flapAccel = 200.f;
+	const float m_flapAccel = 250.f;
+	const float m_flapEaseCoefficient = 0.3f;
+	const float m_flapAccelCap = 250.f;
+	const float m_flapMaxVel = 10.f;
 	
 
 
