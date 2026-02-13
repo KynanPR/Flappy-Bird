@@ -28,7 +28,7 @@ void GameManager::initWindow()
 	windowSize = sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT);
 	videoMode = sf::VideoMode(windowSize.x, windowSize.y);
 	window.create(videoMode, windowTitle, sf::Style::Close | sf::Style::Titlebar);
-	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(60);
 
 }
 
