@@ -92,7 +92,7 @@ void GameManager::updateGame()
 		restartGame = inputManager.getRestartGame();
 		if(restartGame)
 		{
-			currentGameState = Startscreen;
+			currentGameState = Playing;
 			player.resetPlayer();
 			isTheGameOver = false;
 		}
