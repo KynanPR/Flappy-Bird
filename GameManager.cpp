@@ -39,6 +39,7 @@ void GameManager::initText()
 	startSceenText.setFont(gameFont);
 	titleText.setFont(gameFont);
 	gameOverText.setFont(gameFont);
+	restartGameText.setFont(gameFont);
 	// Initalize the startscreen text and title
 	startSceenText.setString(startScreenTextString);
 	startSceenText.setCharacterSize(startScreenCharacterSize);
@@ -54,7 +55,12 @@ void GameManager::initText()
 	gameOverText.setString(gameOverTextString);
 	gameOverText.setCharacterSize(gameOverCharacterSize);
 	gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2, gameOverText.getLocalBounds().height / 2);
-	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 5));
+	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 5)- titleYOffset/2);
+
+	restartGameText.setString(restartGameTextString);
+	restartGameText.setCharacterSize(startScreenCharacterSize);
+	restartGameText.setOrigin(restartGameText.getLocalBounds().width / 2, restartGameText.getLocalBounds().height / 2);
+	restartGameText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 2));
 }
 
 void GameManager::updateGame()
@@ -72,6 +78,18 @@ void GameManager::updateGame()
 	if (isTheGameOver)
 	{
 		currentGameState = GameOver;
+	}
+	if(currentGameState == GameOver)
+	{
+		inputManager.updateRestartGameInput();
+		restartGame = inputManager.getRestartGame();
+		if(restartGame)
+		{
+			currentGameState = Startscreen;
+			player.resetPlayer();
+			isTheGameOver = false;
+		}
+		
 	}
 }
 
@@ -121,5 +139,6 @@ void GameManager::renderText()
 	if (currentGameState == GameOver)
 	{
 		window.draw(gameOverText);
+		window.draw(restartGameText);
 	}
 }
