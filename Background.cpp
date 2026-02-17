@@ -15,7 +15,7 @@ static float smoothstep(float x)
 }
 
 // ---------- Layer ----------
-void Background::Layer::set(sf::Texture& tex, sf::Vector2u winSize)
+void Background::Layer::set(const sf::Texture& tex, sf::Vector2u winSize)
 {
     texture = &tex;
 
@@ -78,43 +78,22 @@ void Background::Layer::draw(sf::RenderTarget& target) const
 
 // ---------- Background ----------
 void Background::init(sf::Vector2u windowSize,
-    const std::vector<std::string>& texturePaths,
+    const std::vector<sf::Texture*>& textures,
     float scrollSpeedPxPerSec)
 {
     winSize = windowSize;
     speed = scrollSpeedPxPerSec;
 
-    textures.clear();
-    textures.resize(texturePaths.size());
-
-    for (std::size_t i = 0; i < texturePaths.size(); ++i)
-        LoadTexture(texturePaths[i], textures[i]);
+    bgTextures = textures; 
 
     transitioning = false;
     t = 0.f;
     currentIndex = 0;
     pendingIndex = 0;
 
-    if (!textures.empty())
+    if (!bgTextures.empty())
     {
-        current.set(textures[0], winSize);
-        current.setAlpha(255);
-    }
-
-    next.texture = nullptr;
-    next.setAlpha(0);
-}
-
-void Background::reset()
-{
-    transitioning = false;
-    t = 0.f;
-    currentIndex = 0;
-    pendingIndex = 0;
-
-    if (!textures.empty())
-    {
-        current.set(textures[0], winSize);
+        current.set(*bgTextures[0], winSize);
         current.setAlpha(255);
     }
 
@@ -124,20 +103,20 @@ void Background::reset()
 
 std::size_t Background::pickIndexForScore(int score) const
 {
-    if (textures.empty()) return 0;
+    if (bgTextures.empty()) return 0;
 
     const int tier = (scoreStep > 0) ? (score / scoreStep) : 0;
-    return static_cast<std::size_t>(tier) % textures.size();
+    return static_cast<std::size_t>(tier) % bgTextures.size();
 }
 
 void Background::beginTransitionToIndex(std::size_t idx)
 {
-    if (textures.empty()) return;
+    if (bgTextures.empty()) return;
     if (idx == currentIndex) return;
 
     pendingIndex = idx;
 
-    next.set(textures[pendingIndex], winSize);
+    next.set(*bgTextures[pendingIndex], winSize);
     next.setAlpha(0);
 
     // keep scroll aligned (no visual jump)
