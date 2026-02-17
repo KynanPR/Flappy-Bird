@@ -1,6 +1,6 @@
 #include "GameManager.h"
 #include <string>
-
+#include <iostream>
 GameManager::GameManager()
 {
     window.create(sf::VideoMode(800, 600), "Background Test");
@@ -11,20 +11,41 @@ GameManager::GameManager()
 
 void GameManager::loadAssets()
 {
-    std::vector<std::string> paths = {
-        "assets/Background/Background1.png",
-        "assets/Background/Background2.png",
-        "assets/Background/Background3.png",
-        "assets/Background/Background4.png",
-        "assets/Background/Background5.png",
-        "assets/Background/Background6.png"
-    };
+    
+    
+        std::vector<std::string> paths = {
+            "assets/Background/Background1.png",
+            "assets/Background/Background2.png",
+            "assets/Background/Background3.png",
+            "assets/Background/Background4.png",
+            "assets/Background/Background5.png",
+            "assets/Background/Background6.png"
+        };
 
-    background.init(window.getSize(), paths, 80.f);
+        backgroundTextures.clear();
 
-    // Change these values however you want:
-    background.setScoreStep(5);            // switch every 5 score (easy to test)
-    background.setTransitionDuration(1.0f); // 1 second fade
+        for (const auto& path : paths)
+        {
+            sf::Texture tex;
+            if (!tex.loadFromFile(path))
+            {
+                std::cout << "Failed to load: " << path << "\n";
+                continue;
+            }
+
+            backgroundTextures.push_back(std::move(tex));
+        }
+
+        // Create vector of pointers
+        std::vector<sf::Texture*> texturePtrs;
+        for (auto& tex : backgroundTextures)
+            texturePtrs.push_back(&tex);
+
+        background.init(window.getSize(), texturePtrs, 80.f);
+
+        background.setScoreStep(5);
+        background.setTransitionDuration(1.0f);
+    
 }
 
 void GameManager::run()

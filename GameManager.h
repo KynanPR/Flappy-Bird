@@ -18,7 +18,7 @@ private:
 private:
     sf::RenderWindow window;
     sf::Clock clock;
-
+    std::vector<sf::Texture> backgroundTextures;
     Background background;
 
     int score = 0;
