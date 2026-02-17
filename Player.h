@@ -3,6 +3,7 @@
 #include "GameObject.h"
 
 
+
 static const std::string PLAYER_TEX_PATH= "assets/Player/StyleBird1/Bird1-7.png";
 
 class Player : public GameObject

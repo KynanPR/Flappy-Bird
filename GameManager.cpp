@@ -120,7 +120,8 @@ void GameManager::renderGame()
 {
 	// clear window
 	window.clear();
-
+	//render background here
+	background.renderBackground(window);
 	// draw objects here
 	if (currentGameState == Startscreen || currentGameState == GameOver)
 	{
