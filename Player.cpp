@@ -6,7 +6,8 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 	m_position = m_startingPosition;
 	sf::IntRect texRect = m_sprite.getTextureRect();
 	m_sprite.setOrigin(texRect.width / 2, texRect.height / 2);
-	m_sprite.setPosition({100.f, 100.f});
+	//m_sprite.setPosition({100.f, 100.f});
+	m_sprite.setPosition(m_position);
 	m_sprite.setScale({ 3.f, 3.f });
 	
 }
@@ -14,6 +15,14 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 bool Player::checkFloorCollision()
 {
 	return (m_sprite.getPosition().y >= WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2));
+}
+
+void Player::resetPlayer()
+{
+	m_position = m_startingPosition;
+	m_velocity = { 0.f, 0.f };
+	m_sprite.setPosition(m_position);
+	m_sprite.setRotation(0.f);
 }
 
 void Player::update(bool isFlapping, sf::Time deltaTime)

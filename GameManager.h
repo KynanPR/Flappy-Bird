@@ -36,17 +36,23 @@ private:
 	sf::Text startSceenText; 
 	sf::Text titleText;
 	sf::Text gameOverText;
+	sf::Text restartGameText;
+	sf::Text scoreText;
 	sf::Font gameFont;
 	const std::string fontPath = "assets/Font/Pixellettersfull-BnJ5.ttf";
 	const std::string startScreenTextString = "Press Space to start";
 	const std::string gameOverTextString = "Game Over!";
+	const std::string restartGameTextString = "Press R to Restart";
+	const std::string scoreTextString = "Score: ";
 	const int startScreenCharacterSize = 50;
 	const int titleCharacterSize = 100;
 	const int gameOverCharacterSize = 200;
+	int score = 0;
 	const std::string title = "FLAPPY BIRD";
 	const float titleYOffset = 200.f;
+	const sf::Vector2f scoreTextOffset = { 100.f, 10.f };
 	bool isTheGameOver = false;
-	
+	bool restartGame = false;
 
 
 	// game objects
