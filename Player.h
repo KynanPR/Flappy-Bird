@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "Pipe.h"
 static const std::string PLAYER_TEX_PATH= "assets/Player/StyleBird1/Bird1-7.png";
 static const sf::Vector2i PLAYER_TEX_SIZE = { 16, 16 };
 
@@ -11,7 +12,7 @@ public:
 	Player();
 	bool checkFloorCollision();
 	void resetPlayer();
-	bool checkCollision(GameObject &object);
+	bool checkCollision(Pipe & pipe, const bool isTopPipe);
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;

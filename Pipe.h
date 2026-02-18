@@ -11,5 +11,7 @@ public:
 	Pipe(bool isDownFacing = false);
 
 	bool checkCollision(Player& player);
+private:
+	bool m_isTopPipe;
 };
 

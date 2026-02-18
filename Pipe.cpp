@@ -2,6 +2,7 @@
 
 Pipe::Pipe(bool isDownFacing) : GameObject(PIPE_TEX_PATH)
 {
+	m_isTopPipe = isDownFacing;
 	sf::IntRect texRect = m_sprite.getTextureRect();
 	texRect.width = PIPE_TEX_SIZE.x;
 	texRect.height = PIPE_TEX_SIZE.y;
@@ -17,5 +18,5 @@ Pipe::Pipe(bool isDownFacing) : GameObject(PIPE_TEX_PATH)
 
 bool Pipe::checkCollision(Player& player)
 {
-	return false;
+	return player.checkCollision(*this, m_isTopPipe);
 }

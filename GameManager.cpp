@@ -77,18 +77,21 @@ void GameManager::updateGame()
 {
 	// update game here
 	if (currentGameState == Playing) {
-	inputManager.updateInput();
-	// Pipe update here
-	pipeManager.update(deltaTime);
+		inputManager.updateInput();
+		// Pipe update here
+		pipeManager.update(deltaTime);
 	}
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
 	// check collision here and if it collides change the game to game over and render the end screen
-	isTheGameOver = player.checkFloorCollision();
+	if (player.checkFloorCollision()) {
 
-	if (isTheGameOver)
-	{
 		currentGameState = GameOver;
 	}
+	if (pipeManager.checkCollision(player)) {
+
+		currentGameState = GameOver;
+	}
+	//isTheGameOver = player.checkFloorCollision() || pipeManager.checkCollision(player);
 	if(currentGameState == GameOver)
 	{
 		inputManager.updateRestartGameInput();
@@ -128,15 +131,15 @@ void GameManager::renderGame()
 	//render background here
 	background.draw(window);
 	// draw objects here
-	if (currentGameState == Startscreen || currentGameState == GameOver)
-	{
-		renderText();
-	}
 	if (currentGameState == Playing || currentGameState == GameOver)
 	{
 		pipeManager.render(window);
 		player.render(window);
 		window.draw(scoreText);
+	}
+	if (currentGameState == Startscreen || currentGameState == GameOver)
+	{
+		renderText();
 	}
 	
 

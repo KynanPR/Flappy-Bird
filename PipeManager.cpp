@@ -5,6 +5,7 @@
 PipeManager::PipeManager()
 {
 	srand(time(0));
+	rand();
 	for (int i = 0; i < m_pipeObstacleCount; i++)
 	{
 		initPipeObstacle(m_pipes[i], (i + 1) * m_xOffsetIncrement);
@@ -76,9 +77,8 @@ bool PipeManager::checkCollision(Player& player)
 {
 	for (PipeObstacle& pipe : m_pipes)
 	{
-		if (pipe.checkCollision(player)) {
+		if (pipe.checkCollision(player))
 			return true;
-		}
 	}
 	return false;
 }

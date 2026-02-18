@@ -28,7 +28,7 @@ private:
 	void recycleOffscreenPipes();
 
 	// Pipes moving bits
-	float m_pipeObstacleVelocity = 100.f;
+	float m_pipeObstacleVelocity = 500.f;
 
 	// Pipes collision checking bits
 	

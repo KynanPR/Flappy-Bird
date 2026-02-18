@@ -37,7 +37,8 @@ private:
 	sf::Vector2u windowSize;
 	sf::Time deltaTime;
 	sf::Event event;
-	enum GameState { Startscreen, Playing, GameOver }; GameState currentGameState = Playing;
+	enum GameState { Startscreen, Playing, GameOver };
+	GameState currentGameState;
 	bool isTheGameOver = false;
 	bool restartGame = false;
 

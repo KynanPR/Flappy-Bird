@@ -33,28 +33,32 @@ void Player::resetPlayer()
 	m_sprite.setRotation(0.f);
 }
 
-bool Player::checkCollision(GameObject &object)
+bool Player::checkCollision(Pipe& pipe, const bool isTopPipe)
 {
-	sf::Vector2f objectPos = object.getPosition();
-	sf::FloatRect objectBounds = object.getGlobalBounds();
+	// Pipe
+	sf::Vector2f pipePos = pipe.getPosition();
+	sf::FloatRect pipeBounds = pipe.getGlobalBounds();
+	// Player
 	sf::Vector2f playerPos = m_collisionCircle.getPosition();
-	sf::Vector2f distance = objectPos - playerPos;
-	float distanceSquared = distance.x * distance.x + distance.y * distance.y;
-	float radiusSumWidth = m_collisionCircle.getRadius() + objectBounds.width / 2;
-	float radiusSumHeight = m_collisionCircle.getRadius() + objectBounds.height / 2;
-	if (distanceSquared <= radiusSumWidth * radiusSumWidth)
-	{
-		return true; 
+	float playerRadius = m_collisionCircle.getRadius();
+
+	sf::Vector2f distance = pipePos - playerPos;
+	float radiusSumWidth = m_collisionCircle.getRadius() + pipeBounds.width / 2;
+
+	// Check if in width bounds
+	bool isWidthCollide = std::abs(distance.x) <= radiusSumWidth;
+	
+	// Check if in height bounds accounting for top vs bottom pipe
+	bool isHeightCollide = false;
+	if (isTopPipe) {
+		isHeightCollide = playerPos.y - playerRadius <= pipeBounds.top + pipeBounds.height;
 	}
-	if (distanceSquared <= radiusSumHeight * radiusSumHeight)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
+	else {
+		isHeightCollide = playerPos.y + playerRadius >= pipeBounds.top;
 	}
 
+	// Only colliding if in both width and height bounds
+	return isWidthCollide && isHeightCollide;
 }
 
 void Player::update(bool isFlapping, sf::Time& deltaTime)
