@@ -14,7 +14,7 @@ public:
 	Player();
 	bool checkFloorCollision();
 	void resetPlayer();
-	bool checkCollision(Pipe & pipe, const bool isTopPipe);
+	bool checkCollision(Pipe &pipe, const bool isTopPipe);
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;

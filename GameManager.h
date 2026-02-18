@@ -24,6 +24,7 @@ private:
 	void initWindow();
 	void initText();
 	void updateGame();
+	void resetGame();
 	void pollEvents();
 	void renderGame();
 	void renderText();

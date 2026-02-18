@@ -1,165 +1,146 @@
 #include "Player.h"
+
 #include <iostream>
 
-Player::Player() : GameObject(PLAYER_TEX_PATH)
-{
-	m_position = m_startingPosition;
-	sf::IntRect texRect = m_sprite.getTextureRect();
-	m_sprite.setOrigin(texRect.width / 2, texRect.height / 2);
-	//m_sprite.setPosition({100.f, 100.f});
-	m_sprite.setPosition(m_position);
-	texRect.width = PLAYER_TEX_SIZE.x;
-	texRect.height = PLAYER_TEX_SIZE.y;
-	m_sprite.setTextureRect(texRect);
-	m_sprite.setOrigin(static_cast<float>(texRect.width / 2), static_cast<float>(texRect.height / 2));
-	m_sprite.setPosition({100.f, 100.f});
-	m_sprite.setScale({ 3.f, 3.f });
-	m_collisionCircle.setRadius(PLAYER_TEX_SIZE.x * 3.f / 2);
-	m_collisionCircle.setOrigin(m_collisionCircle.getRadius(), m_collisionCircle.getRadius());
-	m_collisionCircle.setPosition(m_sprite.getPosition());
-	
+Player::Player() : GameObject(PLAYER_TEX_PATH) {
+  m_position = m_startingPosition;
+  sf::IntRect texRect = m_sprite.getTextureRect();
+  m_sprite.setOrigin({static_cast<float>(texRect.width) / 2.f},
+                     static_cast<float>(texRect.height) / 2.f);
+  m_sprite.setPosition(m_position);
+  texRect.width = PLAYER_TEX_SIZE.x;
+  texRect.height = PLAYER_TEX_SIZE.y;
+  m_sprite.setTextureRect(texRect);
+  m_sprite.setOrigin(static_cast<float>(texRect.width / 2),
+                     static_cast<float>(texRect.height / 2));
+  m_sprite.setPosition({100.f, 100.f});
+  m_sprite.setScale({3.f, 3.f});
+  m_collisionCircle.setRadius(PLAYER_TEX_SIZE.x * 3.f / 2);
+  m_collisionCircle.setOrigin(m_collisionCircle.getRadius(),
+                              m_collisionCircle.getRadius());
+  m_collisionCircle.setPosition(m_sprite.getPosition());
 }
 
-bool Player::checkFloorCollision()
-{
-	return (m_sprite.getPosition().y >= WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2));
+bool Player::checkFloorCollision() {
+  return (m_sprite.getPosition().y >=
+          WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2));
 }
 
-void Player::resetPlayer()
-{
-	m_position = m_startingPosition;
-	m_velocity = { 0.f, 0.f };
-	m_sprite.setPosition(m_position);
-	m_sprite.setRotation(0.f);
+void Player::resetPlayer() {
+  m_position = m_startingPosition;
+  m_velocity = {0.f, 0.f};
+  m_sprite.setPosition(m_position);
+  m_sprite.setRotation(0.f);
 }
 
-bool Player::checkCollision(Pipe& pipe, const bool isTopPipe)
-{
-	// Pipe
-	sf::Vector2f pipePos = pipe.getPosition();
-	sf::FloatRect pipeBounds = pipe.getGlobalBounds();
-	// Player
-	sf::Vector2f playerPos = m_collisionCircle.getPosition();
-	float playerRadius = m_collisionCircle.getRadius();
+bool Player::checkCollision(Pipe& pipe, const bool isTopPipe) {
+  // Pipe
+  sf::Vector2f pipePos = pipe.getPosition();
+  sf::FloatRect pipeBounds = pipe.getGlobalBounds();
+  // Player
+  sf::Vector2f playerPos = m_collisionCircle.getPosition();
+  float playerRadius = m_collisionCircle.getRadius();
 
-	sf::Vector2f distance = pipePos - playerPos;
-	float radiusSumWidth = m_collisionCircle.getRadius() + pipeBounds.width / 2;
+  sf::Vector2f distance = pipePos - playerPos;
+  float radiusSumWidth = m_collisionCircle.getRadius() + pipeBounds.width / 2;
 
-	// Check if in width bounds
-	bool isWidthCollide = std::abs(distance.x) <= radiusSumWidth;
-	
-	// Check if in height bounds accounting for top vs bottom pipe
-	bool isHeightCollide = false;
-	if (isTopPipe) {
-		isHeightCollide = playerPos.y - playerRadius <= pipeBounds.top + pipeBounds.height;
-	}
-	else {
-		isHeightCollide = playerPos.y + playerRadius >= pipeBounds.top;
-	}
+  // Check if in width bounds
+  bool isWidthCollide = std::abs(distance.x) <= radiusSumWidth;
 
-	// Only colliding if in both width and height bounds
-	return isWidthCollide && isHeightCollide;
+  // Check if in height bounds accounting for top vs bottom pipe
+  bool isHeightCollide = false;
+  if (isTopPipe) {
+    isHeightCollide =
+        playerPos.y - playerRadius <= pipeBounds.top + pipeBounds.height;
+  } else {
+    isHeightCollide = playerPos.y + playerRadius >= pipeBounds.top;
+  }
+
+  // Only colliding if in both width and height bounds
+  return isWidthCollide && isHeightCollide;
 }
 
-void Player::update(bool isFlapping, sf::Time& deltaTime)
-{
-	
+void Player::update(bool isFlapping, sf::Time& deltaTime) {
+  // Start flapping
+  if (isFlapping && !m_isFlappedLastFrame) {
+    m_isFlappedLastFrame = true;
+    m_flapFrameCounter = m_flapFrames;
+  }
+  // Continue flap
+  if (m_flapFrameCounter <= m_flapFrames && m_flapFrameCounter > 0) {
+    // Apply accel
+    float easeOut = static_cast<float>(
+        1 - std::pow(2, m_flapFrameCounter *
+                            -m_flapEaseCoefficient));  // Exponential ease out
+    float accel = m_flapAccel * easeOut;
+    // accel = std::min(accel, m_flapAccelCap);
+    m_velocity.y -= accel * deltaTime.asSeconds();
 
-	// Start flapping
-	if (isFlapping && !m_isFlappedLastFrame) {
-		m_isFlappedLastFrame = true;
-		m_flapFrameCounter = m_flapFrames;
-	}
-	// Continue flap
-	if (m_flapFrameCounter <= m_flapFrames && m_flapFrameCounter > 0) {
-		// Apply accel
-		float easeOut = static_cast<float>(1 - std::pow(2, m_flapFrameCounter * -m_flapEaseCoefficient)); // Exponential ease out
-		float accel = m_flapAccel * easeOut;
-		//accel = std::min(accel, m_flapAccelCap);
-		m_velocity.y -= accel * deltaTime.asSeconds();
-		
+    m_flapFrameCounter--;
+  } else {
+    // Apply gravity
+    m_velocity.y += m_gravityAccel * deltaTime.asSeconds();
+  }
 
-		m_flapFrameCounter--;
-	}
-	else {
-		// Apply gravity
-		m_velocity.y += m_gravityAccel * deltaTime.asSeconds();
-	}
+  // Reset flapping tracker
+  if (!isFlapping && m_isFlappedLastFrame) {
+    m_isFlappedLastFrame = false;
+  }
 
-	// Reset flapping tracker
-	if (!isFlapping && m_isFlappedLastFrame) {
-		m_isFlappedLastFrame = false;
-	}
+  // Cap velocity
+  if (m_velocity.y > m_terminalGrav) {
+    m_velocity.y = m_terminalGrav;
+  } else if (m_velocity.y < -m_flapMaxVel) {
+    m_velocity.y = -m_flapMaxVel;
+  }
 
+  // Apply the velocity
+  m_sprite.move(m_velocity);
+  m_collisionCircle.setPosition(m_sprite.getPosition());
 
-	// Cap velocity
-	if (m_velocity.y > m_terminalGrav) {
-		m_velocity.y = m_terminalGrav;
-	}
-	else if (m_velocity.y < -m_flapMaxVel) {
-		m_velocity.y = -m_flapMaxVel;
-	}
+  // rotation based on velocity
+  float targetRotation = 0.f;
 
-	// Apply the velocity
-	m_sprite.move(m_velocity);
-	m_collisionCircle.setPosition(m_sprite.getPosition());
-
-	// rotation based on velocity
-float targetRotation = 0.f;
-
-if (m_velocity.y < 0.f) {
-    m_sprite.setRotation(m_flapRotation); // snap upward
-}
-else {
-	// calculates the target rotation based on velocity. 
-	//first calculate the ratio of current velocity to terminal velocity
+  if (m_velocity.y < 0.f) {
+    m_sprite.setRotation(m_flapRotation);  // snap upward
+  } else {
+    // calculates the target rotation based on velocity.
+    // first calculate the ratio of current velocity to terminal velocity
     float terminalVelocityRatio = m_velocity.y / m_terminalGrav;
-	if (terminalVelocityRatio < 0)
-	{
-		terminalVelocityRatio = 0; // 0 velocity would be a 0 degree rotation
-	}
-	else if (terminalVelocityRatio > 1)
-	{
-		terminalVelocityRatio = 1; // 1 or above would be a 90 degree rotation
-	}
-	// multiply the ratio by the max downwards rotation to get the target rotation
-    targetRotation = terminalVelocityRatio * m_maxDownwardsRotation; 
+    if (terminalVelocityRatio < 0) {
+      terminalVelocityRatio = 0;  // 0 velocity would be a 0 degree rotation
+    } else if (terminalVelocityRatio > 1) {
+      terminalVelocityRatio = 1;  // 1 or above would be a 90 degree rotation
+    }
+    // multiply the ratio by the max downwards rotation to get the target
+    // rotation
+    targetRotation = terminalVelocityRatio * m_maxDownwardsRotation;
+  }
+  float currentRotation = m_sprite.getRotation();
+  // convert to -180 to 180 range
+  if (currentRotation > 180.f) {
+    currentRotation -= 360.f;
+  } else if (currentRotation < -180.f) {
+    currentRotation += 360.f;
+  }
+
+  // find the diffrence between the current and target rotation, and convert to
+  // -180 to 180 range
+  float rotationDifference = targetRotation - currentRotation;
+  if (rotationDifference > 180.f) {
+    targetRotation -= 360.f;
+  } else if (rotationDifference < -180.f) {
+    targetRotation += 360.f;
+  }
+  // calculate the new rotation based on the rotation difference, a speed
+  // factor, and delta time
+  float newRotation = currentRotation + rotationDifference * m_rotationSpeed *
+                                            deltaTime.asSeconds();
+  m_sprite.setRotation(newRotation);
+
+  // Don't go off bottom of screen
+  sf::Vector2f currentPos = m_sprite.getPosition();
+  float maxAllowablePos =
+      WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2);
+  m_sprite.setPosition(currentPos.x, std::min(currentPos.y, maxAllowablePos));
 }
-float currentRotation = m_sprite.getRotation();
-// convert to -180 to 180 range 
-if (currentRotation > 180.f)
-{
-	currentRotation -= 360.f; 
-}
-else if (currentRotation < -180.f)
-{
-	currentRotation += 360.f;
-}
-
-// find the diffrence between the current and target rotation, and convert to -180 to 180 range
-float rotationDifference = targetRotation - currentRotation;
-if(rotationDifference > 180.f)
-{
-	targetRotation -= 360.f;
-}
-else if (rotationDifference < -180.f)
-{
-	targetRotation += 360.f;
-}
-// calculate the new rotation based on the rotation difference, a speed factor, and delta time
-float newRotation = currentRotation + rotationDifference * m_rotationSpeed * deltaTime.asSeconds();
-m_sprite.setRotation(newRotation);
-
-
-
-	
-
-
-		// Don't go off bottom of screen
-		sf::Vector2f currentPos = m_sprite.getPosition();
-		float maxAllowablePos = WINDOW_HEIGHT - (m_sprite.getGlobalBounds().height / 2);
-		m_sprite.setPosition(currentPos.x, std::min(currentPos.y, maxAllowablePos));
-
-	
-}
-

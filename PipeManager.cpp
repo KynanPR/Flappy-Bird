@@ -4,12 +4,9 @@
 
 PipeManager::PipeManager()
 {
-	srand(time(0));
+	srand(static_cast<unsigned>(time(0)));
 	rand();
-	for (int i = 0; i < m_pipeObstacleCount; i++)
-	{
-		initPipeObstacle(m_pipes[i], (i + 1) * m_xOffsetIncrement);
-	}
+	reset();
 }
 
 void PipeManager::update(sf::Time& deltaTime)
@@ -34,9 +31,9 @@ void PipeManager::initPipeObstacle(PipeObstacle& pipe, float xOffset)
 	float pipeX = static_cast<float>(WINDOW_WIDTH) + xOffset + m_offscreenBuffer;
 	// Randomly set height & gap within range
 	float pipeY = static_cast<float>(rand() % WINDOW_HEIGHT);
-	float gap = static_cast<float>((rand() % (m_maxPipeObstacleGap - m_minPipeObstacleGap)) + m_minPipeObstacleGap);
+	int gapSize = (rand() % (m_maxPipeObstacleGap - m_minPipeObstacleGap)) + m_minPipeObstacleGap;
 	pipe.setPosition({ pipeX, pipeY });
-	pipe.setGapSize(gap);
+	pipe.setGapSize(gapSize);
 }
 
 void PipeManager::recycleOffscreenPipes()
@@ -81,6 +78,14 @@ bool PipeManager::checkCollision(Player& player)
 			return true;
 	}
 	return false;
+}
+
+void PipeManager::reset()
+{
+	for (int i = 0; i < m_pipeObstacleCount; i++)
+	{
+		initPipeObstacle(m_pipes[i], (i + 1) * m_xOffsetIncrement);
+	}
 }
 
 inline bool PipeManager::isPipeOffscreenLeft(PipeObstacle& pipe)

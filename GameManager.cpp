@@ -98,15 +98,23 @@ void GameManager::updateGame()
 		restartGame = inputManager.getRestartGame();
 		if(restartGame)
 		{
-			currentGameState = Playing;
-			player.resetPlayer();
-			isTheGameOver = false;
+			resetGame();
 		}
 		
 	}
 	// background scroll + transitions based on score
 	background.update(deltaTime, score);
 }
+
+void GameManager::resetGame()
+{
+	currentGameState = Playing;
+	player.resetPlayer();
+	pipeManager.reset();
+	isTheGameOver = false;
+}
+
+
 
 void GameManager::pollEvents()
 {
