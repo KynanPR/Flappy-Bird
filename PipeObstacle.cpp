@@ -1,11 +1,11 @@
-#include "Pipes.h"
+#include "PipeObstacle.h"
 
-Pipes::Pipes() : m_topPipe(true), m_bottomPipe()
+PipeObstacle::PipeObstacle() : m_topPipe(true), m_bottomPipe()
 {
 	
 }
 
-sf::Vector2f Pipes::setPosition(const sf::Vector2f& newPosition)
+sf::Vector2f PipeObstacle::setPosition(const sf::Vector2f& newPosition)
 {
 	//TODO maybe add checks for valid on screen centre
 
@@ -15,7 +15,7 @@ sf::Vector2f Pipes::setPosition(const sf::Vector2f& newPosition)
 	return m_position;
 }
 
-int Pipes::setGapSize(const int newGapSize)
+int PipeObstacle::setGapSize(const int newGapSize)
 {
 	m_gapSize = newGapSize;
 	setPipesPositions();
@@ -24,7 +24,12 @@ int Pipes::setGapSize(const int newGapSize)
 
 }
 
-sf::Vector2f Pipes::move(const sf::Vector2f moveOffset)
+bool PipeObstacle::checkCollision(Player& player)
+{
+	return (m_topPipe.checkCollision(player) || m_bottomPipe.checkCollision(player));
+}
+
+sf::Vector2f PipeObstacle::move(const sf::Vector2f moveOffset)
 {
 	sf::Vector2f oldPos = getPosition();
 	sf::Vector2f newPos;
@@ -35,18 +40,18 @@ sf::Vector2f Pipes::move(const sf::Vector2f moveOffset)
 	return newPos;
 }
 
-void Pipes::update(sf::Time& deltaTime)
+void PipeObstacle::update(sf::Time& deltaTime)
 {
 
 }
 
-void Pipes::render(sf::RenderWindow& gameWindow)
+void PipeObstacle::render(sf::RenderWindow& gameWindow)
 {
 	m_topPipe.render(gameWindow);
 	m_bottomPipe.render(gameWindow);
 }
 
-void Pipes::setPipesPositions()
+void PipeObstacle::setPipesPositions()
 {
 	m_topPipe.setPosition({ m_position.x, m_position.y - (m_gapSize / 2) });
 	m_bottomPipe.setPosition({ m_position.x, m_position.y + (m_gapSize / 2) });

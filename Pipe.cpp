@@ -14,3 +14,8 @@ Pipe::Pipe(bool isDownFacing) : GameObject(PIPE_TEX_PATH)
 		m_sprite.rotate(180);
 	}
 }
+
+bool Pipe::checkCollision(Player& player)
+{
+	return false;
+}

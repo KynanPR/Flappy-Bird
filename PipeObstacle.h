@@ -1,10 +1,10 @@
 #pragma once
 #include "Pipe.h"
 
-class Pipes
+class PipeObstacle
 {
 public:
-	Pipes();
+	PipeObstacle();
 
 	sf::Vector2f const getPosition() { return m_position; }
 	// Set position of gap between top and bottom Pipe \returns new position
@@ -15,6 +15,8 @@ public:
 	int const getGapSize() { return m_gapSize; }
 	// Set size of gap between top and bottom Pipe \returns new gapSize
 	int setGapSize(const int newGapSize);
+
+	bool checkCollision(Player& player);
 
 	// Overload of update to handle both pipes
 	void update(sf::Time& deltaTime);
