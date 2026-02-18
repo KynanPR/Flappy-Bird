@@ -30,7 +30,7 @@ void Player::resetPlayer()
 	m_sprite.setRotation(0.f);
 }
 
-void Player::update(bool isFlapping, sf::Time deltaTime)
+void Player::update(bool isFlapping, sf::Time& deltaTime)
 {
 	
 

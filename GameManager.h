@@ -33,6 +33,7 @@ private:
 	sf::Event event;
 	enum GameState { Startscreen, Playing, GameOver }; GameState currentGameState = Playing;
 	bool isTheGameOver = false;
+	bool restartGame = false;
 
 	// Text vars
 	const std::string windowTitle = "Flappy Bird";
@@ -54,8 +55,6 @@ private:
 	const std::string title = "FLAPPY BIRD";
 	const float titleYOffset = 200.f;
 	const sf::Vector2f scoreTextOffset = { 100.f, 10.f };
-	bool isTheGameOver = false;
-	bool restartGame = false;
 
 
 	// game objects
