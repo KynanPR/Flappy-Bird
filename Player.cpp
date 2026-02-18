@@ -33,7 +33,7 @@ void Player::resetPlayer()
 	m_sprite.setRotation(0.f);
 }
 
-bool Player::checkCollision(GameObject object)
+bool Player::checkCollision(GameObject &object)
 {
 	sf::Vector2f objectPos = object.getPosition();
 	sf::FloatRect objectBounds = object.getGlobalBounds();

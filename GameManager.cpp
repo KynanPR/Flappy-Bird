@@ -84,7 +84,7 @@ void GameManager::updateGame()
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
 	// check collision here and if it collides change the game to game over and render the end screen
 	isTheGameOver = player.checkFloorCollision();
-	isTheGameOver = player.checkCollision(pipeManager.getPipes());
+
 	if (isTheGameOver)
 	{
 		currentGameState = GameOver;

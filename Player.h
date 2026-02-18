@@ -12,7 +12,7 @@ public:
 	Player();
 	bool checkFloorCollision();
 	void resetPlayer();
-	bool checkCollision(GameObject object);
+	bool checkCollision(GameObject &object);
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
