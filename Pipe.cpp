@@ -7,7 +7,7 @@ Pipe::Pipe(bool isDownFacing) : GameObject(PIPE_TEX_PATH)
 	texRect.height = PIPE_TEX_SIZE.y;
 	m_sprite.setTextureRect(texRect);
 	m_sprite.setScale({ 3.f, 3.f });
-	m_sprite.setOrigin(texRect.width / 2, 0); // top middle
+	m_sprite.setOrigin({ static_cast<float>(texRect.width) / 2.f, 0.f }); // top middle
 
 	// Setup direction bits
 	if (isDownFacing) {

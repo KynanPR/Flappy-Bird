@@ -6,7 +6,7 @@
 #include "PipeManager.h"
 #include "InputManager.h"
 
-
+#include <iostream>
 #include <vector>
 #include <string>
 

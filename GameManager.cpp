@@ -2,8 +2,8 @@
 
 GameManager::GameManager()
 {
-	loadAssets();
 	initWindow();
+	loadAssets();
 	initText();
 	currentGameState = Startscreen;
 
@@ -102,7 +102,7 @@ void GameManager::updateGame()
 		
 	}
 	// background scroll + transitions based on score
-	background.update(dt, score);
+	background.update(deltaTime, score);
 }
 
 void GameManager::pollEvents()
@@ -176,11 +176,7 @@ void GameManager::loadAssets()
         for (const auto& path : paths)
         {
             sf::Texture tex;
-            if (!tex.loadFromFile(path))
-            {
-                std::cout << "Failed to load: " << path << "\n";
-                continue;
-            }
+			LoadTexture(path, tex);
 
             backgroundTextures.push_back(std::move(tex));
         }
@@ -190,7 +186,7 @@ void GameManager::loadAssets()
         for (auto& tex : backgroundTextures)
             texturePtrs.push_back(&tex);
 
-        background.init(window.getSize(), texturePtrs, 80.f);
+        background.init(window.getSize(), texturePtrs);
 
         background.setScoreStep(5);
         background.setTransitionDuration(1.0f);

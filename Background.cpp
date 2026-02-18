@@ -54,11 +54,11 @@ void Background::Layer::setX(float xA, float xB)
     b.setPosition(xB, 0.f);
 }
 
-void Background::Layer::update(float dt, float speed)
+void Background::Layer::update(sf::Time& dt, float speed)
 {
     if (!texture) return;
 
-    const float dx = speed * dt;
+    const float dx = speed * dt.asSeconds();
     a.move(-dx, 0.f);
     b.move(-dx, 0.f);
 
@@ -82,7 +82,7 @@ void Background::init(sf::Vector2u windowSize,
     float scrollSpeedPxPerSec)
 {
     winSize = windowSize;
-    speed = scrollSpeedPxPerSec;
+    scrollSpeed = scrollSpeedPxPerSec;
 
     bgTextures = textures; 
 
@@ -126,7 +126,7 @@ void Background::beginTransitionToIndex(std::size_t idx)
     t = 0.f;
 }
 
-void Background::update(float dt, int score)
+void Background::update(sf::Time& dt, int score)
 {
     if (!current.texture) return;
 
@@ -134,13 +134,13 @@ void Background::update(float dt, int score)
     if (!transitioning && desired != currentIndex)
         beginTransitionToIndex(desired);
 
-    current.update(dt, speed);
+    current.update(dt, scrollSpeed);
 
     if (transitioning)
     {
-        next.update(dt, speed);
+        next.update(dt, scrollSpeed);
 
-        t += dt;
+        t += dt.asSeconds();
         const float dur = std::max(transitionDuration, 0.01f);
         float u = smoothstep(t / dur);
 
@@ -167,5 +167,9 @@ void Background::draw(sf::RenderTarget& target)
 {
     current.draw(target);
     if (transitioning) next.draw(target);
+}
+
+void Background::reset()
+{
 }
 

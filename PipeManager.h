@@ -13,6 +13,6 @@ public:
 private:
 	Pipes m_testPipes;
 
-	float m_moveAmount = 15.f;
+	float m_moveAmount = 80.f;
 };
 
