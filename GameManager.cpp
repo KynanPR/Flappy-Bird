@@ -2,9 +2,12 @@
 
 GameManager::GameManager()
 {
+	loadAssets();
 	initWindow();
 	initText();
 	currentGameState = Startscreen;
+
+
 }
 
 void GameManager::run()
@@ -98,6 +101,8 @@ void GameManager::updateGame()
 		}
 		
 	}
+	// background scroll + transitions based on score
+	background.update(dt, score);
 }
 
 void GameManager::pollEvents()
@@ -121,7 +126,7 @@ void GameManager::renderGame()
 	// clear window
 	window.clear();
 	//render background here
-	
+	background.draw(window);
 	// draw objects here
 	if (currentGameState == Startscreen || currentGameState == GameOver)
 	{
@@ -151,4 +156,43 @@ void GameManager::renderText()
 		window.draw(gameOverText);
 		window.draw(restartGameText);
 	}
+}
+
+void GameManager::loadAssets()
+{
+    
+    
+        std::vector<std::string> paths = {
+            "assets/Background/Background1.png",
+            "assets/Background/Background2.png",
+            "assets/Background/Background3.png",
+            "assets/Background/Background4.png",
+            "assets/Background/Background5.png",
+            "assets/Background/Background6.png"
+        };
+
+        backgroundTextures.clear();
+
+        for (const auto& path : paths)
+        {
+            sf::Texture tex;
+            if (!tex.loadFromFile(path))
+            {
+                std::cout << "Failed to load: " << path << "\n";
+                continue;
+            }
+
+            backgroundTextures.push_back(std::move(tex));
+        }
+
+        // Create vector of pointers
+        std::vector<sf::Texture*> texturePtrs;
+        for (auto& tex : backgroundTextures)
+            texturePtrs.push_back(&tex);
+
+        background.init(window.getSize(), texturePtrs, 80.f);
+
+        background.setScoreStep(5);
+        background.setTransitionDuration(1.0f);
+    
 }

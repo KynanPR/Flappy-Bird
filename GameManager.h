@@ -6,6 +6,11 @@
 #include "PipeManager.h"
 #include "InputManager.h"
 
+
+#include <vector>
+#include <string>
+
+
 class GameManager
 {
 public:
@@ -22,6 +27,7 @@ private:
 	void pollEvents();
 	void renderGame();
 	void renderText();
+	void loadAssets();
 	
 
 	// game vairables
@@ -56,6 +62,7 @@ private:
 	const float titleYOffset = 200.f;
 	const sf::Vector2f scoreTextOffset = { 100.f, 10.f };
 
+	std::vector<sf::Texture> backgroundTextures;
 
 	// game objects
 	Player player;
@@ -64,4 +71,3 @@ private:
 	InputManager inputManager;
 
 };
-
