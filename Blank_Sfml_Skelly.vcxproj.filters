@@ -54,7 +54,7 @@
     <ClCompile Include="PipeManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pipes.cpp">
+    <ClCompile Include="Floor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClInclude Include="PipeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pipes.h">
+    <ClInclude Include="Floor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -129,12 +129,6 @@
     </Image>
     <Image Include="assets\Player\StyleBird1\Bird1-7.png">
       <Filter>Resource Files\Assets\Player</Filter>
-    </Image>
-    <Image Include="assets\Tiles\Style 1\LongPipe.png">
-      <Filter>Resource Files\Assets\Tiles</Filter>
-    </Image>
-    <Image Include="assets\Tiles\Style 1\LongerPipe.png">
-      <Filter>Resource Files\Assets\Tiles</Filter>
     </Image>
   </ItemGroup>
 </Project>

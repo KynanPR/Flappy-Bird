@@ -28,7 +28,7 @@ void GameManager::initWindow()
 	windowSize = sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT);
 	videoMode = sf::VideoMode(windowSize.x, windowSize.y);
 	window.create(videoMode, windowTitle, sf::Style::Close | sf::Style::Titlebar);
-	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(60);
 
 }
 
@@ -39,6 +39,8 @@ void GameManager::initText()
 	startSceenText.setFont(gameFont);
 	titleText.setFont(gameFont);
 	gameOverText.setFont(gameFont);
+	restartGameText.setFont(gameFont);
+	scoreText.setFont(gameFont);	
 	// Initalize the startscreen text and title
 	startSceenText.setString(startScreenTextString);
 	startSceenText.setCharacterSize(startScreenCharacterSize);
@@ -54,7 +56,18 @@ void GameManager::initText()
 	gameOverText.setString(gameOverTextString);
 	gameOverText.setCharacterSize(gameOverCharacterSize);
 	gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2, gameOverText.getLocalBounds().height / 2);
-	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 5));
+	gameOverText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 5)- titleYOffset/2);
+
+	restartGameText.setString(restartGameTextString);
+	restartGameText.setCharacterSize(startScreenCharacterSize);
+	restartGameText.setOrigin(restartGameText.getLocalBounds().width / 2, restartGameText.getLocalBounds().height / 2);
+	restartGameText.setPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 2));
+
+	// initalize the score text
+	scoreText.setString(scoreTextString + std::to_string(score));
+	scoreText.setCharacterSize(startScreenCharacterSize);
+	scoreText.setOrigin(scoreText.getLocalBounds().width / 2, scoreText.getLocalBounds().height / 2);
+	scoreText.setPosition(scoreTextOffset);
 }
 
 void GameManager::updateGame()
@@ -72,6 +85,18 @@ void GameManager::updateGame()
 	if (isTheGameOver)
 	{
 		currentGameState = GameOver;
+	}
+	if(currentGameState == GameOver)
+	{
+		inputManager.updateRestartGameInput();
+		restartGame = inputManager.getRestartGame();
+		if(restartGame)
+		{
+			currentGameState = Playing;
+			player.resetPlayer();
+			isTheGameOver = false;
+		}
+		
 	}
 }
 
@@ -95,7 +120,8 @@ void GameManager::renderGame()
 {
 	// clear window
 	window.clear();
-
+	//render background here
+	
 	// draw objects here
 	if (currentGameState == Startscreen || currentGameState == GameOver)
 	{
@@ -105,6 +131,7 @@ void GameManager::renderGame()
 	{
 		pipeManager.render(window);
 		player.render(window);
+		window.draw(scoreText);
 	}
 	
 
@@ -122,5 +149,6 @@ void GameManager::renderText()
 	if (currentGameState == GameOver)
 	{
 		window.draw(gameOverText);
+		window.draw(restartGameText);
 	}
 }
