@@ -23,6 +23,7 @@ public:
 	// Overload of render to handle both pipes
 	void render(sf::RenderWindow& gameWindow);
 
+	
 private:
 	// Pipes
 	Pipe m_topPipe;
