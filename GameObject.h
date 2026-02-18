@@ -18,11 +18,13 @@ public:
 		m_sprite.move(moveOffset);
 		return m_sprite.getPosition();
 	}
-
+	sf::FloatRect getGlobalBounds() {
+		return m_sprite.getGlobalBounds();
+	}
 	void render(sf::RenderWindow &window) {
 		window.draw(m_sprite);
 	}
-
+	
 
 
 protected:

@@ -14,6 +14,9 @@ Player::Player() : GameObject(PLAYER_TEX_PATH)
 	m_sprite.setOrigin(static_cast<float>(texRect.width / 2), static_cast<float>(texRect.height / 2));
 	m_sprite.setPosition({100.f, 100.f});
 	m_sprite.setScale({ 3.f, 3.f });
+	m_collisionCircle.setRadius(PLAYER_TEX_SIZE.x * 3.f / 2);
+	m_collisionCircle.setOrigin(m_collisionCircle.getRadius(), m_collisionCircle.getRadius());
+	m_collisionCircle.setPosition(m_sprite.getPosition());
 	
 }
 
@@ -28,6 +31,30 @@ void Player::resetPlayer()
 	m_velocity = { 0.f, 0.f };
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(0.f);
+}
+
+bool Player::checkCollision(GameObject object)
+{
+	sf::Vector2f objectPos = object.getPosition();
+	sf::FloatRect objectBounds = object.getGlobalBounds();
+	sf::Vector2f playerPos = m_collisionCircle.getPosition();
+	sf::Vector2f distance = objectPos - playerPos;
+	float distanceSquared = distance.x * distance.x + distance.y * distance.y;
+	float radiusSumWidth = m_collisionCircle.getRadius() + objectBounds.width / 2;
+	float radiusSumHeight = m_collisionCircle.getRadius() + objectBounds.height / 2;
+	if (distanceSquared <= radiusSumWidth * radiusSumWidth)
+	{
+		return true; 
+	}
+	if (distanceSquared <= radiusSumHeight * radiusSumHeight)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
 void Player::update(bool isFlapping, sf::Time& deltaTime)
@@ -71,6 +98,7 @@ void Player::update(bool isFlapping, sf::Time& deltaTime)
 
 	// Apply the velocity
 	m_sprite.move(m_velocity);
+	m_collisionCircle.setPosition(m_sprite.getPosition());
 
 	// rotation based on velocity
 float targetRotation = 0.f;
