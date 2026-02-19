@@ -176,7 +176,7 @@ void GameManager::loadAssets() {
   std::vector<std::string> paths = {
       "assets/Background/Background1.png", "assets/Background/Background2.png",
       "assets/Background/Background3.png", "assets/Background/Background4.png",
-      "assets/Background/Background5.png", "assets/Background/Background6.png"};
+      "assets/Background/Background5.png"};
 
   backgroundTextures.clear();
 
