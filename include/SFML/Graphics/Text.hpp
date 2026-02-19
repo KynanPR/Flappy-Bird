@@ -45,9 +45,8 @@ namespace sf
 /// \brief Graphical text that can be drawn to a render target
 ///
 ////////////////////////////////////////////////////////////
-class SFML_GRAPHICS_API Text : public Drawable, public Transformable
-{
-public:
+class SFML_GRAPHICS_API Text : public Drawable, public Transformable {
+ public:
 
     ////////////////////////////////////////////////////////////
     /// \brief Enumeration of the string drawing styles
@@ -85,7 +84,9 @@ public:
     /// \param characterSize  Base size of characters, in pixels
     ///
     ////////////////////////////////////////////////////////////
-    Text(const String& string, const Font& font, unsigned int characterSize = 30);
+    Text(const String& string,
+         const Font& font,
+         unsigned int characterSize = 30);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the text's string

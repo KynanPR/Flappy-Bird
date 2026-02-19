@@ -3,7 +3,6 @@
 GameManager::GameManager() {
   initWindow();
   loadAssets();
-  initText();
   currentGameState = Startscreen;
 }
 
@@ -22,66 +21,9 @@ void GameManager::run() {
 void GameManager::initWindow() {
   windowSize = sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT);
   videoMode = sf::VideoMode(windowSize.x, windowSize.y);
-  window.create(videoMode, windowTitle, sf::Style::Close | sf::Style::Titlebar);
+  window.create(videoMode, windowTitleText,
+                sf::Style::Close | sf::Style::Titlebar);
   window.setFramerateLimit(60);
-}
-
-void GameManager::initText() {
-  // Initalize the font
-  gameFont.loadFromFile(fontPath);
-  startScreenText.setFont(gameFont);
-  titleText.setFont(gameFont);
-  gameOverText.setFont(gameFont);
-  restartGameText.setFont(gameFont);
-
-  scoreText.setFont(gameFont);
-  // Initalize the startscreen text and title
-  startScreenText.setString(startScreenTextString);
-  startScreenText.setCharacterSize(startScreenCharacterSize);
-  startScreenText.setOutlineColor(sf::Color::Black);
-  startScreenText.setOutlineThickness(3.f);
-  startScreenText.setOrigin(startScreenText.getLocalBounds().width / 2,
-                            startScreenText.getLocalBounds().height / 2);
-  startScreenText.setPosition(static_cast<float>(windowSize.x / 2),
-                              static_cast<float>(windowSize.y / 2));
-
-  titleText.setString(title);
-  titleText.setCharacterSize(titleCharacterSize);
-  titleText.setOutlineColor(sf::Color::Black);
-  titleText.setOutlineThickness(5.f);
-  titleText.setOrigin(titleText.getLocalBounds().width / 2,
-                      titleText.getLocalBounds().height / 2);
-  titleText.setPosition(static_cast<float>(windowSize.x / 2),
-                        static_cast<float>(windowSize.y / 2) - titleYOffset);
-
-  // initalize the game over text
-  gameOverText.setString(gameOverTextString);
-  gameOverText.setCharacterSize(gameOverCharacterSize);
-  gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2,
-                         gameOverText.getLocalBounds().height / 2);
-  gameOverText.setOutlineColor(sf::Color::Black);
-  gameOverText.setOutlineThickness(5.f);
-  gameOverText.setPosition(
-      static_cast<float>(windowSize.x / 2),
-      static_cast<float>(windowSize.y / 5) - titleYOffset / 2);
-
-  restartGameText.setString(restartGameTextString);
-  restartGameText.setCharacterSize(startScreenCharacterSize);
-  restartGameText.setOrigin(restartGameText.getLocalBounds().width / 2,
-                            restartGameText.getLocalBounds().height / 2);
-  restartGameText.setOutlineColor(sf::Color::Black);
-  restartGameText.setOutlineThickness(3.f);
-  restartGameText.setPosition(static_cast<float>(windowSize.x / 2),
-                              static_cast<float>(windowSize.y / 2));
-
-  // initalize the score text
-  scoreText.setString(scoreTextString + std::to_string(score));
-  scoreText.setCharacterSize(startScreenCharacterSize);
-  scoreText.setOutlineColor(sf::Color::Black);
-  scoreText.setOutlineThickness(3.f);
-  scoreText.setOrigin(scoreText.getLocalBounds().width / 2,
-                      scoreText.getLocalBounds().height / 2);
-  scoreText.setPosition(scoreTextOffset);
 }
 
 void GameManager::updateGame() {
@@ -151,7 +93,8 @@ void GameManager::renderGame() {
     pipeManager.render(window);
     player.render(window);
     // player.renderTestHitbox(window);
-    window.draw(scoreText);
+    m_textManager.m_score.render(window);
+    m_textManager.m_highscore.render(window);
   }
   if (currentGameState == Startscreen || currentGameState == GameOver) {
     renderText();
@@ -163,12 +106,12 @@ void GameManager::renderGame() {
 
 void GameManager::renderText() {
   if (currentGameState == Startscreen) {
-    window.draw(startScreenText);
-    window.draw(titleText);
+    m_textManager.m_startScreen.render(window);
+    m_textManager.m_title.render(window);
   }
   if (currentGameState == GameOver) {
-    window.draw(gameOverText);
-    window.draw(restartGameText);
+    m_textManager.m_gameOver.render(window);
+    m_textManager.m_restartGame.render(window);
   }
 }
 
@@ -200,5 +143,6 @@ void GameManager::loadAssets() {
 
 void GameManager::updateScore() {
   score = scoreManager.updateScore(pipeManager, player);
-  scoreText.setString(scoreTextString + std::to_string(score));
+  scoreManager.updateScoreDisplay(m_textManager.m_score);
+  scoreManager.updateHighscoreDisplay(m_textManager.m_highscore);
 }
