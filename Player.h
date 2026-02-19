@@ -16,16 +16,18 @@ class Player : public GameObject {
   void resetPlayer();
   bool checkCollision(Pipe& pipe, const bool isTopPipe);
   void renderTestHitbox(sf::RenderWindow& window);
-
+  void flapAnimation(bool isFlapping, sf::Time dt);
  private:
   sf::Vector2f m_position;
   sf::Vector2f m_velocity;
   sf::Vector2f prevPosition;
   sf::CircleShape m_collisionCircle;
+  sf::IntRect m_animationRect;
 
   int m_flapFrames = 10;
   int m_flapFrameCounter = 1;
   bool m_isFlappedLastFrame = true;
+  bool m_isAnimatingFlap = false;
   const sf::Vector2f m_startingPosition = {
       static_cast<float>(WINDOW_WIDTH / 5),
       static_cast<float>(WINDOW_HEIGHT / 2)};
@@ -35,7 +37,8 @@ class Player : public GameObject {
   const float m_flapEaseCoefficient = 0.3f;
   const float m_flapAccelCap = 250.f;
   const float m_flapMaxVel = 10.f;
-
+  const float m_animationSpeed = 0.1f;
+  float m_animationTimer = 0.f;
   const float m_rotationSpeed = 4.f;
   const float m_flapRotation = -45.f;
   const float m_maxDownwardsRotation = 90.f;

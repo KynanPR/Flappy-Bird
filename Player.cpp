@@ -21,6 +21,7 @@ Player::Player() : GameObject(PLAYER_TEX_PATH) {
                               m_collisionCircle.getRadius());
   m_collisionCircle.setPosition(m_sprite.getPosition());
   m_collisionCircle.setFillColor(sf::Color::Red);
+  m_animationRect = m_sprite.getTextureRect();
 }
 
 bool Player::checkFloorCollision() {
@@ -66,12 +67,43 @@ void Player::renderTestHitbox(sf::RenderWindow& window) {
   window.draw(m_collisionCircle);
 }
 
+void Player::flapAnimation(bool isFlapping, sf::Time deltaTime)
+{
+    // increase the animation timer using delta time 
+    m_animationTimer += deltaTime.asSeconds();
+    // if the bird is flapping 
+    if (m_flapFrameCounter == m_flapFrames - 1)
+    {
+		// reset the animation frame to the first 
+		m_animationRect = sf::IntRect{ 0,0 , PLAYER_TEX_SIZE.x, PLAYER_TEX_SIZE.y };
+		// and set the bool to true to start the animation
+		m_isAnimatingFlap = true;
+    }
+    // if the animation timer has reached the animation speed and the bird is animating
+    if (m_isAnimatingFlap && m_animationTimer >= m_animationSpeed)
+    {
+		// move to the next frame and reset the timer
+        m_animationRect.left += PLAYER_TEX_SIZE.x;
+		m_animationTimer = 0.f;
+    }
+	// if you reach the end of the animation frames reset back to the first frame and stop animating
+    if (m_animationRect.left >= PLAYER_TEX_SIZE.x * 3)
+    {
+        m_animationRect.left = 0;
+		m_isAnimatingFlap = false;
+    }
+	// set the texture rect to the current animation frame
+	m_sprite.setTextureRect(m_animationRect);
+}
+
 void Player::update(bool isFlapping, sf::Time& deltaTime) {
   // Start flapping
+
   if (isFlapping && !m_isFlappedLastFrame) {
     m_isFlappedLastFrame = true;
     m_flapFrameCounter = m_flapFrames;
   }
+
   // Continue flap
   if (m_flapFrameCounter <= m_flapFrames && m_flapFrameCounter > 0) {
     // Apply accel
@@ -103,8 +135,8 @@ void Player::update(bool isFlapping, sf::Time& deltaTime) {
   // Apply the velocity
   m_sprite.move(m_velocity);
   m_collisionCircle.setPosition(m_sprite.getPosition());
-
-  // rotation based on velocity
+  flapAnimation(isFlapping, deltaTime);
+  //rotation based on velocity
   float targetRotation = 0.f;
 
   if (m_velocity.y < 0.f) {
