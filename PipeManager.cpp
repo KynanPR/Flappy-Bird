@@ -41,6 +41,7 @@ void PipeManager::initPipeObstacle(PipeObstacle& pipe, float xOffset) {
 
   pipe.setPosition({pipeX, pipeY});
   pipe.setGapSize(gapSize);
+  pipe.setHasScore(true);
 }
 
 void PipeManager::recycleOffscreenPipes() {

@@ -15,13 +15,13 @@ class PipeManager {
 
   void reset();
 
-	PipeObstacle * getPipes() { return m_pipes; }
+  PipeObstacle* getPipes() { return m_pipes; }
 
-	int getAmountOfPipes() { return m_pipeObstacleCount; }
+  int getAmountOfPipes() { return m_pipeObstacleCount; }
 
-private:
-	static const int m_pipeObstacleCount = 5;
-	PipeObstacle m_pipes[m_pipeObstacleCount];
+ private:
+  static const int m_pipeObstacleCount = 4;
+  PipeObstacle m_pipes[m_pipeObstacleCount];
 
   // PipeObstacle Spawning/Respawning bits
   static constexpr float m_offscreenBuffer = 50.f;

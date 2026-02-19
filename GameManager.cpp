@@ -73,55 +73,45 @@ void GameManager::initText() {
   scoreText.setPosition(scoreTextOffset);
 }
 
-void GameManager::updateGame()
-{
-	// update game here
-	
-	background.update(deltaTime, score);
-	if (currentGameState == Playing) {
-		inputManager.updateInput();
-		// Pipe update here
-		pipeManager.update(deltaTime);
+void GameManager::updateGame() {
+  // update game here
+  if (currentGameState == Playing) {
+    inputManager.updateInput();
+    background.update(deltaTime, score);
+    // Pipe update here
+    pipeManager.update(deltaTime);
+  }
+  player.update(inputManager.getPlayerMoveUp(), deltaTime);
 
+  // check collision here and if it collides change the game to game over and
+  // render the end screen
+  if (player.checkFloorCollision()) {
+    currentGameState = GameOver;
+  }
+  if (pipeManager.checkCollision(player)) {
+    currentGameState = GameOver;
+  }
+  updateScore();
+  // isTheGameOver = player.checkFloorCollision() ||
+  // pipeManager.checkCollision(player);
+  if (currentGameState == GameOver) {
+    inputManager.updateRestartGameInput();
+    restartGame = inputManager.getRestartGame();
+    if (restartGame) {
+      resetGame();
+    }
+  }
 
-	}
-	player.update(inputManager.getPlayerMoveUp(), deltaTime);
-	
-	// check collision here and if it collides change the game to game over and render the end screen
-	if (player.checkFloorCollision()) {
-
-		currentGameState = GameOver;
-	}
-	if (pipeManager.checkCollision(player)) {
-
-		currentGameState = GameOver;
-	}
-	updateScore();
-	//isTheGameOver = player.checkFloorCollision() || pipeManager.checkCollision(player);
-	if(currentGameState == GameOver)
-	{
-		inputManager.updateRestartGameInput();
-		restartGame = inputManager.getRestartGame();
-		if(restartGame)
-		{
-			resetGame();
-		}
-		
-	}
-
-
-
-	// background scroll + transitions based on score
-	background.update(deltaTime, score);
+  //// background scroll + transitions based on score
+  // background.update(deltaTime, score);
 }
 
-void GameManager::resetGame()
-{
-	currentGameState = Playing;
-	player.resetPlayer();
-	pipeManager.reset();
-	isTheGameOver = false;
-	scoreManager.resetScore();
+void GameManager::resetGame() {
+  currentGameState = Playing;
+  player.resetPlayer();
+  pipeManager.reset();
+  isTheGameOver = false;
+  scoreManager.resetScore();
 }
 
 void GameManager::pollEvents() {
@@ -197,10 +187,7 @@ void GameManager::loadAssets() {
   background.setTransitionDuration(1.0f);
 }
 
-void GameManager::updateScore()
-{
-	score = scoreManager.updateScore(pipeManager, player);
-	scoreText.setString(scoreTextString + std::to_string(score));
-	
-
+void GameManager::updateScore() {
+  score = scoreManager.updateScore(pipeManager, player);
+  scoreText.setString(scoreTextString + std::to_string(score));
 }
