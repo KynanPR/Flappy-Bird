@@ -15,10 +15,12 @@ Player::Player() : GameObject(PLAYER_TEX_PATH) {
                      static_cast<float>(texRect.height / 2));
   m_sprite.setPosition({100.f, 100.f});
   m_sprite.setScale({3.f, 3.f});
-  m_collisionCircle.setRadius(PLAYER_TEX_SIZE.x * 3.f / 2);
+  // make collision circle slightly smaller than the bird for gameplay reasons
+  m_collisionCircle.setRadius(PLAYER_TEX_SIZE.x * 3.f / 2.5);
   m_collisionCircle.setOrigin(m_collisionCircle.getRadius(),
                               m_collisionCircle.getRadius());
   m_collisionCircle.setPosition(m_sprite.getPosition());
+  m_collisionCircle.setFillColor(sf::Color::Red);
 }
 
 bool Player::checkFloorCollision() {
@@ -58,6 +60,10 @@ bool Player::checkCollision(Pipe& pipe, const bool isTopPipe) {
 
   // Only colliding if in both width and height bounds
   return isWidthCollide && isHeightCollide;
+}
+
+void Player::renderTestHitbox(sf::RenderWindow& window) {
+  window.draw(m_collisionCircle);
 }
 
 void Player::update(bool isFlapping, sf::Time& deltaTime) {
