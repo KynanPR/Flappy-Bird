@@ -5,6 +5,7 @@
 #include "PipeManager.h"
 #include "Player.h"
 #include "ScoreManager.h"
+#include "TextManager.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -20,7 +21,6 @@ class GameManager {
  private:
   // private functions
   void initWindow();
-  void initText();
   void updateGame();
   void resetGame();
   void pollEvents();
@@ -44,25 +44,7 @@ class GameManager {
 
   std::vector<sf::Texture> backgroundTextures;
 
-  // Text vars
-  sf::Text startScreenText;
-  sf::Text titleText;
-  sf::Text gameOverText;
-  sf::Text restartGameText;
-  sf::Text scoreText;
-  sf::Font gameFont;
-  const std::string windowTitle = "Flappy Bird";
-  const std::string fontPath = "assets/Font/Pixellettersfull-BnJ5.ttf";
-  const std::string startScreenTextString = "Press Space to start";
-  const std::string gameOverTextString = "Game Over!";
-  const std::string restartGameTextString = "Press R to Restart";
-  const std::string scoreTextString = "Score: ";
-  const int startScreenCharacterSize = 50;
-  const int titleCharacterSize = 100;
-  const int gameOverCharacterSize = 200;
-  const std::string title = "FLAPPY BIRD";
-  const float titleYOffset = 200.f;
-  const sf::Vector2f scoreTextOffset = {100.f, 10.f};
+  const std::string windowTitleText = "Flappy Bird";
 
   // game objects
   Player player;
@@ -70,4 +52,5 @@ class GameManager {
   PipeManager pipeManager;
   InputManager inputManager;
   ScoreManager scoreManager;
+  TextManager m_textManager;
 };
