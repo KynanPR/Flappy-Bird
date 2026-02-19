@@ -5,6 +5,7 @@
 #include"Background.h"
 #include "PipeManager.h"
 #include "InputManager.h"
+#include "ScoreManager.h"
 
 #include <iostream>
 #include <vector>
@@ -29,6 +30,7 @@ private:
 	void renderGame();
 	void renderText();
 	void loadAssets();
+	void updateScore();
 	
 
 	// game vairables
@@ -63,7 +65,6 @@ private:
 	const std::string title = "FLAPPY BIRD";
 	const float titleYOffset = 200.f;
 	const sf::Vector2f scoreTextOffset = { 100.f, 10.f };
-
 	std::vector<sf::Texture> backgroundTextures;
 
 	// game objects
@@ -71,5 +72,5 @@ private:
 	Background background;
 	PipeManager pipeManager;
 	InputManager inputManager;
-
+	ScoreManager scoreManager;
 };

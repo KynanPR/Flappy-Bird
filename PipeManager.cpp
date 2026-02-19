@@ -2,11 +2,12 @@
 #include <random>
 #include <ctime>
 
-PipeManager::PipeManager()
+PipeManager::PipeManager() 
 {
 	srand(static_cast<unsigned>(time(0)));
 	rand();
 	reset();
+	
 }
 
 void PipeManager::update(sf::Time& deltaTime)
@@ -34,6 +35,7 @@ void PipeManager::initPipeObstacle(PipeObstacle& pipe, float xOffset)
 	int gapSize = (rand() % (m_maxPipeObstacleGap - m_minPipeObstacleGap)) + m_minPipeObstacleGap;
 	pipe.setPosition({ pipeX, pipeY });
 	pipe.setGapSize(gapSize);
+	pipe.setHasScore(true);
 }
 
 void PipeManager::recycleOffscreenPipes()
@@ -61,6 +63,11 @@ void PipeManager::movePipes(sf::Time& deltaTime)
 
 		if (isPipeOffscreenLeft(pipe)) {
 			initPipeObstacle(pipe);
+		}
+		if (newPosition.x < 100 && pipe.getHasScore())
+		{
+			pipe.setHasScore(false);
+			m_score
 		}
 	}
 }

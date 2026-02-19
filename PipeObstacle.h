@@ -22,7 +22,8 @@ public:
 	void update(sf::Time& deltaTime);
 	// Overload of render to handle both pipes
 	void render(sf::RenderWindow& gameWindow);
-
+	bool getHasScore() { return m_hasScore; }
+	void setHasScore(bool hasScore) { m_hasScore = hasScore; }
 	
 private:
 	// Pipes
@@ -34,6 +35,6 @@ private:
 
 	// Set position of both pipes accounting for gap size
 	void setPipesPositions();
-
+	bool m_hasScore = true;
 };
 

@@ -17,6 +17,10 @@ public:
 
 	void reset();
 
+	PipeObstacle * getPipes() { return m_pipes; }
+
+	int getAmountOfPipes() { return m_pipeObstacleCount; }
+
 private:
 	static const int m_pipeObstacleCount = 5;
 	PipeObstacle m_pipes[m_pipeObstacleCount];
@@ -34,7 +38,7 @@ private:
 
 	// Pipes collision checking bits
 	
-
+	
 	static inline bool isPipeOffscreenLeft(PipeObstacle& pipe);
 };
 

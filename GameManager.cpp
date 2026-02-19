@@ -80,8 +80,11 @@ void GameManager::updateGame()
 		inputManager.updateInput();
 		// Pipe update here
 		pipeManager.update(deltaTime);
+
+
 	}
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
+	score = scoreManager.updateScore(pipeManager, player);
 	// check collision here and if it collides change the game to game over and render the end screen
 	if (player.checkFloorCollision()) {
 
@@ -102,6 +105,9 @@ void GameManager::updateGame()
 		}
 		
 	}
+
+
+
 	// background scroll + transitions based on score
 	background.update(deltaTime, score);
 }
@@ -202,4 +208,10 @@ void GameManager::loadAssets()
         background.setScoreStep(5);
         background.setTransitionDuration(1.0f);
     
+}
+
+void GameManager::updateScore()
+{
+	
+
 }
