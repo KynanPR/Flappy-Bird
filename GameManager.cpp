@@ -29,21 +29,26 @@ void GameManager::initWindow() {
 void GameManager::initText() {
   // Initalize the font
   gameFont.loadFromFile(fontPath);
-  startSceenText.setFont(gameFont);
+  startScreenText.setFont(gameFont);
   titleText.setFont(gameFont);
   gameOverText.setFont(gameFont);
   restartGameText.setFont(gameFont);
+
   scoreText.setFont(gameFont);
   // Initalize the startscreen text and title
-  startSceenText.setString(startScreenTextString);
-  startSceenText.setCharacterSize(startScreenCharacterSize);
-  startSceenText.setOrigin(startSceenText.getLocalBounds().width / 2,
-                           startSceenText.getLocalBounds().height / 2);
-  startSceenText.setPosition(static_cast<float>(windowSize.x / 2),
-                             static_cast<float>(windowSize.y / 2));
+  startScreenText.setString(startScreenTextString);
+  startScreenText.setCharacterSize(startScreenCharacterSize);
+  startScreenText.setOutlineColor(sf::Color::Black);
+  startScreenText.setOutlineThickness(3.f);
+  startScreenText.setOrigin(startScreenText.getLocalBounds().width / 2,
+                            startScreenText.getLocalBounds().height / 2);
+  startScreenText.setPosition(static_cast<float>(windowSize.x / 2),
+                              static_cast<float>(windowSize.y / 2));
 
   titleText.setString(title);
   titleText.setCharacterSize(titleCharacterSize);
+  titleText.setOutlineColor(sf::Color::Black);
+  titleText.setOutlineThickness(5.f);
   titleText.setOrigin(titleText.getLocalBounds().width / 2,
                       titleText.getLocalBounds().height / 2);
   titleText.setPosition(static_cast<float>(windowSize.x / 2),
@@ -54,6 +59,8 @@ void GameManager::initText() {
   gameOverText.setCharacterSize(gameOverCharacterSize);
   gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2,
                          gameOverText.getLocalBounds().height / 2);
+  gameOverText.setOutlineColor(sf::Color::Black);
+  gameOverText.setOutlineThickness(5.f);
   gameOverText.setPosition(
       static_cast<float>(windowSize.x / 2),
       static_cast<float>(windowSize.y / 5) - titleYOffset / 2);
@@ -62,12 +69,16 @@ void GameManager::initText() {
   restartGameText.setCharacterSize(startScreenCharacterSize);
   restartGameText.setOrigin(restartGameText.getLocalBounds().width / 2,
                             restartGameText.getLocalBounds().height / 2);
+  restartGameText.setOutlineColor(sf::Color::Black);
+  restartGameText.setOutlineThickness(3.f);
   restartGameText.setPosition(static_cast<float>(windowSize.x / 2),
                               static_cast<float>(windowSize.y / 2));
 
   // initalize the score text
   scoreText.setString(scoreTextString + std::to_string(score));
   scoreText.setCharacterSize(startScreenCharacterSize);
+  scoreText.setOutlineColor(sf::Color::Black);
+  scoreText.setOutlineThickness(3.f);
   scoreText.setOrigin(scoreText.getLocalBounds().width / 2,
                       scoreText.getLocalBounds().height / 2);
   scoreText.setPosition(scoreTextOffset);
@@ -152,7 +163,7 @@ void GameManager::renderGame() {
 
 void GameManager::renderText() {
   if (currentGameState == Startscreen) {
-    window.draw(startSceenText);
+    window.draw(startScreenText);
     window.draw(titleText);
   }
   if (currentGameState == GameOver) {
