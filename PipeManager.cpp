@@ -64,11 +64,7 @@ void PipeManager::movePipes(sf::Time& deltaTime)
 		if (isPipeOffscreenLeft(pipe)) {
 			initPipeObstacle(pipe);
 		}
-		if (newPosition.x < 100 && pipe.getHasScore())
-		{
-			pipe.setHasScore(false);
-			m_score
-		}
+		
 	}
 }
 

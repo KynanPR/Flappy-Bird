@@ -76,6 +76,8 @@ void GameManager::initText()
 void GameManager::updateGame()
 {
 	// update game here
+	
+	background.update(deltaTime, score);
 	if (currentGameState == Playing) {
 		inputManager.updateInput();
 		// Pipe update here
@@ -84,7 +86,7 @@ void GameManager::updateGame()
 
 	}
 	player.update(inputManager.getPlayerMoveUp(), deltaTime);
-	score = scoreManager.updateScore(pipeManager, player);
+	
 	// check collision here and if it collides change the game to game over and render the end screen
 	if (player.checkFloorCollision()) {
 
@@ -94,6 +96,7 @@ void GameManager::updateGame()
 
 		currentGameState = GameOver;
 	}
+	updateScore();
 	//isTheGameOver = player.checkFloorCollision() || pipeManager.checkCollision(player);
 	if(currentGameState == GameOver)
 	{
@@ -118,6 +121,7 @@ void GameManager::resetGame()
 	player.resetPlayer();
 	pipeManager.reset();
 	isTheGameOver = false;
+	scoreManager.resetScore();
 }
 
 
@@ -212,6 +216,8 @@ void GameManager::loadAssets()
 
 void GameManager::updateScore()
 {
+	score = scoreManager.updateScore(pipeManager, player);
+	scoreText.setString(scoreTextString + std::to_string(score));
 	
 
 }
