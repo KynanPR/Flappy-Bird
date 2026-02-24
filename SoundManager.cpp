@@ -14,7 +14,7 @@ void SoundManager::initSounds()
 
 	m_scoreSoundBuffer.loadFromFile(m_scoreSoundPath);
 	m_scoreSound.setBuffer(m_scoreSoundBuffer);
-	m_scoreSound.setVolume(50.f);  
+	m_scoreSound.setVolume(25.f);  
 
 	m_gameOverSoundBuffer.loadFromFile(m_gameOverSoundPath);
 	m_gameOverSound.setBuffer(m_gameOverSoundBuffer);
