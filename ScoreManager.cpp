@@ -2,7 +2,7 @@
 
 ScoreManager::ScoreManager() {}
 
-int ScoreManager::updateScore(PipeManager& pipeManager, Player player) {
+int ScoreManager::updateScore(PipeManager& pipeManager, Player player,sf::Sound &pointSFX) {
   float playerX = player.getPosition().x;
   auto pipes = pipeManager.getPipes();
   int amountOfPipes = pipeManager.getAmountOfPipes();
@@ -10,6 +10,7 @@ int ScoreManager::updateScore(PipeManager& pipeManager, Player player) {
     if (pipes[loopcounter].getHasScore() &&
         pipes[loopcounter].getPosition().x < playerX) {
       m_score++;
+	  pointSFX.play();
       pipes[loopcounter].setHasScore(false);
     }
   }

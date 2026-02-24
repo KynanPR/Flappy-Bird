@@ -7,6 +7,7 @@
 #include "ScoreManager.h"
 #include "TextManager.h"
 #include "Utils.h"
+#include "SoundManager.h"
 
 #include <iostream>
 #include <string>
@@ -40,6 +41,7 @@ class GameManager {
   GameState currentGameState;
   bool isTheGameOver = false;
   bool restartGame = false;
+  bool hasGameoverSoundPlayed = false;
   int score = 0;
 
   std::vector<sf::Texture> backgroundTextures;
@@ -53,4 +55,5 @@ class GameManager {
   InputManager inputManager;
   ScoreManager scoreManager;
   TextManager m_textManager;
+  SoundManager m_soundManager;
 };

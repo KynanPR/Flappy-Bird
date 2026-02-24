@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Pipe.h"
+#include"SFML/Audio.hpp"
 static const std::string PLAYER_TEX_PATH =
     "assets/Player/StyleBird1/Bird1-7.png";
 static const sf::Vector2i PLAYER_TEX_SIZE = {16, 16};
@@ -10,7 +11,7 @@ class Pipe;
 
 class Player : public GameObject {
  public:
-  void update(bool isFlapping, sf::Time& deltaTime);
+  void update(bool isFlapping, sf::Time& deltaTime,sf::Sound &flapSFX);
   Player();
   bool checkFloorCollision();
   void resetPlayer();

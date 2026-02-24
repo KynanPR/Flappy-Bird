@@ -144,6 +144,7 @@
     <ClCompile Include="PipeObstacle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="PipeObstacle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="Utils.h" />

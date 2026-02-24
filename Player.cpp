@@ -96,12 +96,13 @@ void Player::flapAnimation(bool isFlapping, sf::Time deltaTime)
 	m_sprite.setTextureRect(m_animationRect);
 }
 
-void Player::update(bool isFlapping, sf::Time& deltaTime) {
+void Player::update(bool isFlapping, sf::Time& deltaTime,sf::Sound &flapSFX) {
   // Start flapping
 
   if (isFlapping && !m_isFlappedLastFrame) {
     m_isFlappedLastFrame = true;
     m_flapFrameCounter = m_flapFrames;
+	flapSFX.play();
   }
 
   // Continue flap
@@ -113,6 +114,7 @@ void Player::update(bool isFlapping, sf::Time& deltaTime) {
     float accel = m_flapAccel * easeOut;
     // accel = std::min(accel, m_flapAccelCap);
     m_velocity.y -= accel * deltaTime.asSeconds();
+	
 
     m_flapFrameCounter--;
   } else {

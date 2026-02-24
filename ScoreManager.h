@@ -2,11 +2,12 @@
 #include "PipeManager.h"
 #include "Player.h"
 #include "Text.h"
+#include "SFML/Audio.hpp"
 
 class ScoreManager {
  public:
   ScoreManager();
-  int updateScore(PipeManager& pipeManager, Player player);
+  int updateScore(PipeManager& pipeManager, Player player, sf::Sound& pointSFX);
   void updateScoreDisplay(Text& scoreTextDisplay);
   void resetScore() { m_score = 0; }
 
