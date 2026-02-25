@@ -67,59 +67,55 @@ void Player::renderTestHitbox(sf::RenderWindow& window) {
   window.draw(m_collisionCircle);
 }
 
-void Player::flapAnimation(bool isFlapping, sf::Time deltaTime)
-{
-    // increase the animation timer using delta time 
-    m_animationTimer += deltaTime.asSeconds();
-    // if the bird is flapping 
-    if (m_flapFrameCounter == m_flapFrames - 1)
-    {
-		// reset the animation frame to the first 
-		m_animationRect = sf::IntRect{ 0,0 , PLAYER_TEX_SIZE.x, PLAYER_TEX_SIZE.y };
-		// and set the bool to true to start the animation
-		m_isAnimatingFlap = true;
-    }
-    // if the animation timer has reached the animation speed and the bird is animating
-    if (m_isAnimatingFlap && m_animationTimer >= m_animationSpeed)
-    {
-		// move to the next frame and reset the timer
-        m_animationRect.left += PLAYER_TEX_SIZE.x;
-		m_animationTimer = 0.f;
-    }
-	// if you reach the end of the animation frames reset back to the first frame and stop animating
-    if (m_animationRect.left >= PLAYER_TEX_SIZE.x * 3)
-    {
-        m_animationRect.left = 0;
-		m_isAnimatingFlap = false;
-    }
-	// set the texture rect to the current animation frame
-	m_sprite.setTextureRect(m_animationRect);
+void Player::flapAnimation(bool isFlapping, sf::Time deltaTime) {
+  // increase the animation timer using delta time
+  m_animationTimer += deltaTime.asSeconds();
+  // if the bird is flapping
+  if (m_flapElapsed <= m_flapDuration) {
+    // reset the animation frame to the first
+    m_animationRect = sf::IntRect{0, 0, PLAYER_TEX_SIZE.x, PLAYER_TEX_SIZE.y};
+    // and set the bool to true to start the animation
+    m_isAnimatingFlap = true;
+  }
+  // if the animation timer has reached the animation speed and the bird is
+  // animating
+  if (m_isAnimatingFlap && m_animationTimer >= m_animationSpeed) {
+    // move to the next frame and reset the timer
+    m_animationRect.left += PLAYER_TEX_SIZE.x;
+    m_animationTimer = 0.f;
+  }
+  // if you reach the end of the animation frames reset back to the first frame
+  // and stop animating
+  if (m_animationRect.left >= PLAYER_TEX_SIZE.x * 3) {
+    m_animationRect.left = 0;
+    m_isAnimatingFlap = false;
+  }
+  // set the texture rect to the current animation frame
+  m_sprite.setTextureRect(m_animationRect);
 }
 
-void Player::update(bool isFlapping, sf::Time& deltaTime,sf::Sound &flapSFX) {
+void Player::update(bool isFlapping, sf::Time& deltaTime, sf::Sound& flapSFX) {
   // Start flapping
-
   if (isFlapping && !m_isFlappedLastFrame) {
     m_isFlappedLastFrame = true;
-    m_flapFrameCounter = m_flapFrames;
-	flapSFX.play();
+    m_flapElapsed = m_flapDuration;
+    flapSFX.play();
   }
 
   // Continue flap
-  if (m_flapFrameCounter <= m_flapFrames && m_flapFrameCounter > 0) {
+  if (m_flapElapsed <= m_flapDuration && m_flapElapsed > 0) {
     // Apply accel
     float easeOut = static_cast<float>(
-        1 - std::pow(2, m_flapFrameCounter *
+        1 - std::pow(2, m_flapElapsed *
                             -m_flapEaseCoefficient));  // Exponential ease out
     float accel = m_flapAccel * easeOut;
     // accel = std::min(accel, m_flapAccelCap);
-    m_velocity.y -= accel * deltaTime.asSeconds();
-	
+    m_velocity.y -= accel;  // * deltaTime.asSeconds();
 
-    m_flapFrameCounter--;
+    m_flapElapsed -= deltaTime.asSeconds();
   } else {
     // Apply gravity
-    m_velocity.y += m_gravityAccel * deltaTime.asSeconds();
+    m_velocity.y += m_gravityAccel;  // * deltaTime.asSeconds();
   }
 
   // Reset flapping tracker
@@ -135,10 +131,14 @@ void Player::update(bool isFlapping, sf::Time& deltaTime,sf::Sound &flapSFX) {
   }
 
   // Apply the velocity
-  m_sprite.move(m_velocity);
+  sf::Vector2f moveAmount = m_velocity * deltaTime.asSeconds();
+  m_sprite.move(m_velocity * deltaTime.asSeconds());
+  // std::cout << moveAmount.y << '\t' << m_sprite.getPosition().y << '\n';
+  std::cout << m_flapElapsed << '\n';
+
   m_collisionCircle.setPosition(m_sprite.getPosition());
   flapAnimation(isFlapping, deltaTime);
-  //rotation based on velocity
+  // rotation based on velocity
   float targetRotation = 0.f;
 
   if (m_velocity.y < 0.f) {
