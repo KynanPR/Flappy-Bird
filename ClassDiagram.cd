@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Background">
+    <Position X="9.75" Y="11" Width="2" />
+    <Members>
+      <Method Name="Background" Hidden="true" />
+      <Field Name="current" Hidden="true" />
+      <Field Name="currentIndex" Hidden="true" />
+      <Field Name="defaultScrollSpeed" Hidden="true" />
+      <Field Name="next" Hidden="true" />
+      <Field Name="pendingIndex" Hidden="true" />
+      <Method Name="pickIndexForScore" Hidden="true" />
+      <Method Name="reset" Hidden="true" />
+      <Method Name="setScoreStep" Hidden="true" />
+      <Method Name="setTransitionDuration" Hidden="true" />
+      <Field Name="t" Hidden="true" />
+      <Field Name="transitionDuration" Hidden="true" />
+      <Field Name="transitioning" Hidden="true" />
+      <Field Name="winSize" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Struct Name="Background::Layer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Background.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABAAACAGYAAAAACAAAJAAAAAgCAAAAIAAgQgAAIEBAA=</HashCode>
+      <FileName>Background.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager">
+    <Position X="6.25" Y="7.5" Width="2.25" />
+    <Members>
+      <Method Name="GameManager" Hidden="true" />
+      <Field Name="hasGameoverSoundPlayed" Hidden="true" />
+      <Field Name="isTheGameOver" Hidden="true" />
+      <Field Name="restartGame" Hidden="true" />
+      <Field Name="videoMode" Hidden="true" />
+      <Field Name="windowSize" Hidden="true" />
+      <Field Name="windowTitleText" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="GameManager::GameState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgAoAgAAEAIAACGAAJAAAEAAAAEBYpNQCAAQBAYAA=</HashCode>
+      <FileName>GameManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="player" />
+      <Field Name="background" />
+      <Field Name="inputManager" />
+      <Field Name="m_soundManager" />
+      <Field Name="m_textManager" />
+      <Field Name="scoreManager" />
+      <Field Name="pipeManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAACAAAAACCAAAAAAAAiAAAAAIAAAAAAAAIQAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager">
+    <Position X="10" Y="8.75" Width="2" />
+    <Members>
+      <Method Name="getPlayerMoveUp" Hidden="true" />
+      <Method Name="getRestartGame" Hidden="true" />
+      <Method Name="InputManager" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAQABAAAAAAAAAAAAAAAAIgAAQIAAAAAA=</HashCode>
+      <FileName>InputManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pipe">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <Members>
+      <Method Name="Pipe" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAABAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pipe.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PipeManager">
+    <Position X="1.75" Y="4" Width="2.75" />
+    <Members>
+      <Method Name="getAmountOfPipes" Hidden="true" />
+      <Method Name="getPipes" Hidden="true" />
+      <Method Name="isPipeOffscreenLeft" Hidden="true" />
+      <Field Name="m_offscreenBuffer" Hidden="true" />
+      <Field Name="m_pipeObstacleGapMax" Hidden="true" />
+      <Field Name="m_pipeObstacleGapMin" Hidden="true" />
+      <Field Name="m_pipeObstacleHeightDifferenceMax" Hidden="true" />
+      <Field Name="m_pipeObstacleLastSpawnHeight" Hidden="true" />
+      <Field Name="m_pipeObstacleSpawnHeightMax" Hidden="true" />
+      <Field Name="m_pipeObstacleSpawnHeightMin" Hidden="true" />
+      <Field Name="m_pipeObstacleVelocity" Hidden="true" />
+      <Field Name="m_xOffsetIncrement" Hidden="true" />
+      <Method Name="PipeManager" Hidden="true" />
+      <Method Name="reset" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAFAAAAABASAAAQAAAgAIFAAEAAAABAAQAUsAA=</HashCode>
+      <FileName>PipeManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="m_pipes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="PipeObstacle">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <Members>
+      <Method Name="getGapSize" Hidden="true" />
+      <Method Name="getHasScore" Hidden="true" />
+      <Method Name="getPosition" Hidden="true" />
+      <Field Name="m_hasScore" Hidden="true" />
+      <Method Name="PipeObstacle" Hidden="true" />
+      <Method Name="setGapSize" Hidden="true" />
+      <Method Name="setHasScore" Hidden="true" />
+      <Method Name="setPipesPositions" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAAAAGIBAABAAACAICACAAAAMAAAAE0AAA=</HashCode>
+      <FileName>PipeObstacle.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_topPipe" />
+      <Field Name="m_bottomPipe" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Player">
+    <Position X="10.5" Y="4.5" Width="2.25" />
+    <Members>
+      <Method Name="flapAnimation" Hidden="true" />
+      <Field Name="m_flapAccel" Hidden="true" />
+      <Field Name="m_flapAccelCap" Hidden="true" />
+      <Field Name="m_flapDuration" Hidden="true" />
+      <Field Name="m_flapEaseCoefficient" Hidden="true" />
+      <Field Name="m_flapElapsed" Hidden="true" />
+      <Field Name="m_flapMaxVel" Hidden="true" />
+      <Field Name="m_flapRotation" Hidden="true" />
+      <Field Name="m_flapTotalDeltaVel" Hidden="true" />
+      <Field Name="m_gravDuration" Hidden="true" />
+      <Field Name="m_gravityAccel" Hidden="true" />
+      <Field Name="m_gravTotalDeltaVel" Hidden="true" />
+      <Field Name="m_isAnimatingFlap" Hidden="true" />
+      <Field Name="m_isFlappedLastFrame" Hidden="true" />
+      <Field Name="m_maxDownwardsRotation" Hidden="true" />
+      <Field Name="m_position" Hidden="true" />
+      <Field Name="m_rotationSpeed" Hidden="true" />
+      <Field Name="m_startingPosition" Hidden="true" />
+      <Field Name="m_terminalGrav" Hidden="true" />
+      <Field Name="m_velocity" Hidden="true" />
+      <Method Name="Player" Hidden="true" />
+      <Method Name="renderTestHitbox" Hidden="true" />
+      <Method Name="resetPlayer" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>UCAAQAQACGAAkAAAAAAAIIBAANACAAYAAAIgEwAEIQA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScoreManager">
+    <Position X="5.75" Y="13" Width="2" />
+    <Members>
+      <Field Name="m_baseHighscoreText" Hidden="true" />
+      <Field Name="m_baseScoreText" Hidden="true" />
+      <Method Name="ScoreManager" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAJAQCAgAgABAAAAAAAAAAAAAAAAAAAAgAAABAAAAAA=</HashCode>
+      <FileName>ScoreManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundManager">
+    <Position X="2.75" Y="12.25" Width="2" />
+    <Members>
+      <Method Name="getFlapSound" Hidden="true" />
+      <Method Name="getGameOverSound" Hidden="true" />
+      <Method Name="getScoreSound" Hidden="true" />
+      <Field Name="m_flapSoundBuffer" Hidden="true" />
+      <Field Name="m_flapSoundPath" Hidden="true" />
+      <Field Name="m_gameOverSoundBuffer" Hidden="true" />
+      <Field Name="m_gameOverSoundPath" Hidden="true" />
+      <Field Name="m_scoreSoundBuffer" Hidden="true" />
+      <Field Name="m_scoreSoundPath" Hidden="true" />
+      <Method Name="SoundManager" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AhAAAAAACAAAAIACAAAAAAgEQQgAABAACACAAAAAAAA=</HashCode>
+      <FileName>SoundManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Text">
+    <Position X="0.5" Y="8.25" Width="1.5" />
+    <Members>
+      <Method Name="getPosition" Hidden="true" />
+      <Method Name="getText" Hidden="true" />
+      <Field Name="m_originLocation" Hidden="true" />
+      <Method Name="resetOrigin" Hidden="true" />
+      <Method Name="setFont" Hidden="true" />
+      <Method Name="Text" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAIAAAAAAAAACACCACAAgAAAAAAACAAQAAE=</HashCode>
+      <FileName>Text.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextManager">
+    <Position X="3.5" Y="8.75" Width="1.75" />
+    <Members>
+      <Field Name="m_centerPosition" Hidden="true" />
+      <Field Name="m_gameFontPath" Hidden="true" />
+      <Field Name="m_gameOverPosition" Hidden="true" />
+      <Field Name="m_gameOverText" Hidden="true" />
+      <Field Name="m_highscorePosition" Hidden="true" />
+      <Field Name="m_restartGameText" Hidden="true" />
+      <Field Name="m_scorePosition" Hidden="true" />
+      <Field Name="m_startScreenText" Hidden="true" />
+      <Field Name="m_titleOffsetY" Hidden="true" />
+      <Field Name="m_titlePosition" Hidden="true" />
+      <Field Name="m_titleText" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ACIAAIIgAAAACIIUAARAAAgACQAAAApAgAAIAACAAAE=</HashCode>
+      <FileName>TextManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_gameOver" />
+      <Field Name="m_highscore" />
+      <Field Name="m_restartGame" />
+      <Field Name="m_score" />
+      <Field Name="m_startScreen" />
+      <Field Name="m_title" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
