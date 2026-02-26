@@ -9,8 +9,12 @@ int ScoreManager::updateScore(PipeManager& pipeManager, Player player,sf::Sound 
   for (int loopcounter = 0; loopcounter < amountOfPipes; loopcounter++) {
     if (pipes[loopcounter].getHasScore() &&
         pipes[loopcounter].getPosition().x < playerX) {
-      m_score++;
-	  pointSFX.play();
+        m_score++;
+      if (m_score % 5 == 0)
+      {
+          pointSFX.play();
+      }
+	 
       pipes[loopcounter].setHasScore(false);
     }
   }
