@@ -23,8 +23,8 @@ void GameManager::initWindow() {
   videoMode = sf::VideoMode(windowSize.x, windowSize.y);
   window.create(videoMode, windowTitleText,
                 sf::Style::Close | sf::Style::Titlebar);
-  window.setFramerateLimit(60);
-  //      window.setVerticalSyncEnabled(true);
+  // window.setFramerateLimit(60);
+  //            window.setVerticalSyncEnabled(true);
 }
 
 void GameManager::updateGame() {
@@ -130,7 +130,7 @@ void GameManager::loadAssets() {
 
   backgroundTextures.clear();
 
-  for (const auto& path : paths) {
+  for (const auto &path : paths) {
     sf::Texture tex;
     LoadTexture(path, tex);
 
@@ -138,8 +138,8 @@ void GameManager::loadAssets() {
   }
 
   // Create vector of pointers
-  std::vector<sf::Texture*> texturePtrs;
-  for (auto& tex : backgroundTextures)
+  std::vector<sf::Texture *> texturePtrs;
+  for (auto &tex : backgroundTextures)
     texturePtrs.push_back(&tex);
 
   background.init(window.getSize(), texturePtrs);
