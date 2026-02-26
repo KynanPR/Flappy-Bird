@@ -30,13 +30,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -181,6 +181,13 @@
     <Image Include="assets\Tiles\Style 1\PipeStyle1.png" />
     <Image Include="assets\Tiles\Style 1\SimpleStyle1.png" />
     <Image Include="assets\Tiles\Style 1\TileStyle1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\Sounds\sfx_die.wav" />
+    <Media Include="assets\Sounds\sfx_hit.wav" />
+    <Media Include="assets\Sounds\sfx_point.wav" />
+    <Media Include="assets\Sounds\sfx_swooshing.wav" />
+    <Media Include="assets\Sounds\sfx_wing.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

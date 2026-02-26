@@ -1,14 +1,11 @@
 #include "Utils.h"
 
-bool LoadTexture(const std::string &texPath, sf::Texture& tex)
-{
-
-    if (tex.loadFromFile(texPath)) {
-        tex.setSmooth(false);
-        return true;
-    }
-    else {
-        return false;
-    }
+bool LoadTexture(const std::string& texPath, sf::Texture& tex) {
+  if (tex.loadFromFile(texPath)) {
+    tex.setSmooth(false);
+    return true;
+  } else {
     return false;
+  }
+  return false;
 }

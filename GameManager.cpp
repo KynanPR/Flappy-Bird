@@ -23,7 +23,6 @@ void GameManager::initWindow() {
   videoMode = sf::VideoMode(windowSize.x, windowSize.y);
   window.create(videoMode, windowTitleText,
                 sf::Style::Close | sf::Style::Titlebar);
-  window.setFramerateLimit(60);
 }
 
 void GameManager::updateGame() {
@@ -34,26 +33,22 @@ void GameManager::updateGame() {
     // Pipe update here
     pipeManager.update(deltaTime);
   }
-  player.update(inputManager.getPlayerMoveUp(), deltaTime,m_soundManager.getFlapSound());
+  player.update(inputManager.getPlayerMoveUp(), deltaTime,
+                m_soundManager.getFlapSound());
 
   // check collision here and if it collides change the game to game over and
   // render the end screen
-  if (currentGameState == Playing)
-  {
-      if (player.checkFloorCollision() || pipeManager.checkCollision(player))
-      {
-          currentGameState = GameOver;
+  if (currentGameState == Playing) {
+    if (player.checkFloorCollision() || pipeManager.checkCollision(player)) {
+      currentGameState = GameOver;
 
-          if (!hasGameoverSoundPlayed)
-          {
-              m_soundManager.getGameOverSound().play();
-              hasGameoverSoundPlayed = true;
-          }
+      if (!hasGameoverSoundPlayed) {
+        m_soundManager.getGameOverSound().play();
+        hasGameoverSoundPlayed = true;
       }
+    }
   }
   updateScore();
-  // isTheGameOver = player.checkFloorCollision() ||
-  // pipeManager.checkCollision(player);
   if (currentGameState == GameOver) {
     inputManager.updateRestartGameInput();
     restartGame = inputManager.getRestartGame();
@@ -61,9 +56,6 @@ void GameManager::updateGame() {
       resetGame();
     }
   }
-
-  //// background scroll + transitions based on score
-  // background.update(deltaTime, score);
 }
 
 void GameManager::resetGame() {
@@ -150,7 +142,8 @@ void GameManager::loadAssets() {
 }
 
 void GameManager::updateScore() {
-  score = scoreManager.updateScore(pipeManager, player,m_soundManager.getScoreSound());
+  score = scoreManager.updateScore(pipeManager, player,
+                                   m_soundManager.getScoreSound());
   scoreManager.updateScoreDisplay(m_textManager.m_score);
   scoreManager.updateHighscoreDisplay(m_textManager.m_highscore);
 }
