@@ -36,7 +36,7 @@ void Player::resetPlayer() {
   m_sprite.setRotation(0.f);
 }
 
-bool Player::checkCollision(Pipe &pipe, const bool isTopPipe) {
+bool Player::checkCollision(Pipe& pipe, const bool isTopPipe) {
   // Pipe
   sf::Vector2f pipePos = pipe.getPosition();
   sf::FloatRect pipeBounds = pipe.getGlobalBounds();
@@ -63,7 +63,7 @@ bool Player::checkCollision(Pipe &pipe, const bool isTopPipe) {
   return isWidthCollide && isHeightCollide;
 }
 
-void Player::renderTestHitbox(sf::RenderWindow &window) {
+void Player::renderTestHitbox(sf::RenderWindow& window) {
   window.draw(m_collisionCircle);
 }
 
@@ -94,7 +94,7 @@ void Player::flapAnimation(bool isFlapping, sf::Time deltaTime) {
   m_sprite.setTextureRect(m_animationRect);
 }
 
-void Player::update(bool isFlapping, sf::Time &deltaTime, sf::Sound &flapSFX) {
+void Player::update(bool isFlapping, sf::Time& deltaTime, sf::Sound& flapSFX) {
   // Start flapping
   if (isFlapping && !m_isFlappedLastFrame) {
     m_isFlappedLastFrame = true;
@@ -107,12 +107,12 @@ void Player::update(bool isFlapping, sf::Time &deltaTime, sf::Sound &flapSFX) {
     // Apply accel
     float easeOut = static_cast<float>(
         1 - std::pow(2, m_flapElapsed *
-                            -m_flapEaseCoefficient)); // Exponential ease out
+                            -m_flapEaseCoefficient));  // Exponential ease out
     float fractionOfTotalFlapDuration = deltaTime.asSeconds() / m_flapDuration;
     float adjustedDeltaVel = m_flapTotalDeltaVel * fractionOfTotalFlapDuration;
     float accel = adjustedDeltaVel * m_flapAccel * easeOut;
     // accel = std::min(accel, m_flapAccelCap);
-    m_velocity.y -= accel; // * deltaTime.asSeconds();
+    m_velocity.y -= accel;  // * deltaTime.asSeconds();
 
     m_flapElapsed -= deltaTime.asSeconds();
   } else {
@@ -120,7 +120,7 @@ void Player::update(bool isFlapping, sf::Time &deltaTime, sf::Sound &flapSFX) {
     float fractionOfTotalGravDuration = deltaTime.asSeconds() / m_gravDuration;
     float adjustedDeltaVel = m_gravTotalDeltaVel * fractionOfTotalGravDuration;
     m_velocity.y +=
-        m_gravityAccel * adjustedDeltaVel; // * deltaTime.asSeconds();
+        m_gravityAccel * adjustedDeltaVel;  // * deltaTime.asSeconds();
   }
 
   // Reset flapping tracker
@@ -138,8 +138,6 @@ void Player::update(bool isFlapping, sf::Time &deltaTime, sf::Sound &flapSFX) {
   // Apply the velocity
   sf::Vector2f moveAmount = m_velocity * deltaTime.asSeconds();
   m_sprite.move(m_velocity * deltaTime.asSeconds());
-  // std::cout << moveAmount.y << '\t' << m_sprite.getPosition().y << '\n';
-  std::cout << m_flapElapsed << '\n';
 
   m_collisionCircle.setPosition(m_sprite.getPosition());
   flapAnimation(isFlapping, deltaTime);
@@ -147,15 +145,15 @@ void Player::update(bool isFlapping, sf::Time &deltaTime, sf::Sound &flapSFX) {
   float targetRotation = 0.f;
 
   if (m_velocity.y < 0.f) {
-    m_sprite.setRotation(m_flapRotation); // snap upward
+    m_sprite.setRotation(m_flapRotation);  // snap upward
   } else {
     // calculates the target rotation based on velocity.
     // first calculate the ratio of current velocity to terminal velocity
     float terminalVelocityRatio = m_velocity.y / m_terminalGrav;
     if (terminalVelocityRatio < 0) {
-      terminalVelocityRatio = 0; // 0 velocity would be a 0 degree rotation
+      terminalVelocityRatio = 0;  // 0 velocity would be a 0 degree rotation
     } else if (terminalVelocityRatio > 1) {
-      terminalVelocityRatio = 1; // 1 or above would be a 90 degree rotation
+      terminalVelocityRatio = 1;  // 1 or above would be a 90 degree rotation
     }
     // multiply the ratio by the max downwards rotation to get the target
     // rotation
