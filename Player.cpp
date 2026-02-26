@@ -111,16 +111,14 @@ void Player::update(bool isFlapping, sf::Time& deltaTime, sf::Sound& flapSFX) {
     float fractionOfTotalFlapDuration = deltaTime.asSeconds() / m_flapDuration;
     float adjustedDeltaVel = m_flapTotalDeltaVel * fractionOfTotalFlapDuration;
     float accel = adjustedDeltaVel * m_flapAccel * easeOut;
-    // accel = std::min(accel, m_flapAccelCap);
-    m_velocity.y -= accel;  // * deltaTime.asSeconds();
+    m_velocity.y -= accel;
 
     m_flapElapsed -= deltaTime.asSeconds();
   } else {
     // Apply gravity
     float fractionOfTotalGravDuration = deltaTime.asSeconds() / m_gravDuration;
     float adjustedDeltaVel = m_gravTotalDeltaVel * fractionOfTotalGravDuration;
-    m_velocity.y +=
-        m_gravityAccel * adjustedDeltaVel;  // * deltaTime.asSeconds();
+    m_velocity.y += m_gravityAccel * adjustedDeltaVel;
   }
 
   // Reset flapping tracker

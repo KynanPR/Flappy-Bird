@@ -40,7 +40,5 @@ class PipeManager {
   // Pipes moving bits
   float m_pipeObstacleVelocity = 450.f;
 
-  // Pipes collision checking bits
-
   static inline bool isPipeOffscreenLeft(PipeObstacle& pipe);
 };

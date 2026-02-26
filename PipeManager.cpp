@@ -20,9 +20,6 @@ void PipeManager::render(sf::RenderWindow& gameWindow) {
 }
 
 void PipeManager::initPipeObstacle(PipeObstacle& pipe, float xOffset) {
-  // Double check it's not on screen
-  // if (!isPipeOffscreenLeft(pipe)) return;
-
   // Set to be off right side of screen ready to scroll on
   float pipeX = static_cast<float>(WINDOW_WIDTH) + xOffset + m_offscreenBuffer;
 
@@ -58,7 +55,6 @@ void PipeManager::recycleOffscreenPipes() {
 }
 
 // Moves each pipe in m_pipes left towards player
-
 void PipeManager::movePipes(sf::Time& deltaTime) {
   for (PipeObstacle& pipe : m_pipes) {
     // Move pipe

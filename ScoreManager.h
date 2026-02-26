@@ -1,8 +1,8 @@
 #pragma once
 #include "PipeManager.h"
 #include "Player.h"
-#include "Text.h"
 #include "SFML/Audio.hpp"
+#include "Text.h"
 
 class ScoreManager {
  public:

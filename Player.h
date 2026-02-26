@@ -26,9 +26,8 @@ class Player : public GameObject {
   sf::CircleShape m_collisionCircle;
   sf::IntRect m_animationRect;
 
-  // int m_flapFrames = 100;
-  // int m_flapFrameCounter = 1;
-  const float m_flapDuration = 0.167f;  // 167.f;
+  // Movement constants
+  const float m_flapDuration = 0.167f;
   float m_flapElapsed = 0.000f;
   bool m_isFlappedLastFrame = true;
   bool m_isAnimatingFlap = false;

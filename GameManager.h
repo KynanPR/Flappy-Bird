@@ -5,9 +5,9 @@
 #include "PipeManager.h"
 #include "Player.h"
 #include "ScoreManager.h"
+#include "SoundManager.h"
 #include "TextManager.h"
 #include "Utils.h"
-#include "SoundManager.h"
 
 #include <iostream>
 #include <string>

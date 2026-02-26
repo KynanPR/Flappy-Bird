@@ -23,8 +23,6 @@ void GameManager::initWindow() {
   videoMode = sf::VideoMode(windowSize.x, windowSize.y);
   window.create(videoMode, windowTitleText,
                 sf::Style::Close | sf::Style::Titlebar);
-  // window.setFramerateLimit(60);
-  // window.setVerticalSyncEnabled(true);
 }
 
 void GameManager::updateGame() {
@@ -51,8 +49,6 @@ void GameManager::updateGame() {
     }
   }
   updateScore();
-  // isTheGameOver = player.checkFloorCollision() ||
-  // pipeManager.checkCollision(player);
   if (currentGameState == GameOver) {
     inputManager.updateRestartGameInput();
     restartGame = inputManager.getRestartGame();
@@ -60,9 +56,6 @@ void GameManager::updateGame() {
       resetGame();
     }
   }
-
-  //// background scroll + transitions based on score
-  // background.update(deltaTime, score);
 }
 
 void GameManager::resetGame() {

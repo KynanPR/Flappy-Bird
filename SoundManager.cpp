@@ -5,7 +5,7 @@ SoundManager::SoundManager() {
 }
 
 void SoundManager::initSounds() {
-  // loat the sounds from the file paths and set the buffers for the sound
+  // load the sounds from the file paths and set the buffers for the sound
   // objects
   m_flapSoundBuffer.loadFromFile(m_flapSoundPath);
   m_flapSound.setBuffer(m_flapSoundBuffer);
