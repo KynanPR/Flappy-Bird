@@ -61,7 +61,7 @@ void GameManager::updateGame() {
       resetGame();
     }
   }
-  
+
   //// background scroll + transitions based on score
   // background.update(deltaTime, score);
 }
